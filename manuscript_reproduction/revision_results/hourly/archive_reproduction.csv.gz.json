@@ -1,0 +1,27 @@
+{
+  "engine": "corrected",
+  "hours": 8760,
+  "validation_issues": [
+    {
+      "level": "WARN",
+      "path": "building_surface[6].parapet",
+      "msg": "parapet out of range; clipped to 0.9",
+      "fix_applied": true
+    },
+    {
+      "level": "WARN",
+      "path": "building_surface[7].parapet",
+      "msg": "parapet out of range; clipped to 0.9",
+      "fix_applied": true
+    },
+    {
+      "level": "WARN",
+      "path": "building_surface[3]",
+      "msg": "Adjacent zone area corridor in EV (81.000 m\u00b2) > BUI area (13.500 m\u00b2); capped to 13.500",
+      "fix_applied": true
+    }
+  ],
+  "max_balance_residual_W": 7.009504088273388e-12,
+  "Q_internal_gains_sum": 728182.8,
+  "H_ve_sum": 451730.9495999999
+}
