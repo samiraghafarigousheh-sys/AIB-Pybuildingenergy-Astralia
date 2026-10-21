@@ -97,7 +97,7 @@
   },
   "references": {
     "diagnostic_q4": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q4/referenceout.sql",
+      "sql": "revision_results/energyplus/diagnostic_q4/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,
@@ -115,7 +115,7 @@
       "infiltration_output_schedule_available": false
     },
     "diagnostic_q11": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q11/referenceout.sql",
+      "sql": "revision_results/energyplus/diagnostic_q11/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,
@@ -133,7 +133,7 @@
       "infiltration_output_schedule_available": false
     },
     "layers_q4": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/layers_q4/referenceout.sql",
+      "sql": "revision_results/energyplus/layers_q4/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,
@@ -151,7 +151,7 @@
       "infiltration_output_schedule_available": false
     },
     "layers_q11": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/layers_q11/referenceout.sql",
+      "sql": "revision_results/energyplus/layers_q11/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,
@@ -169,7 +169,7 @@
       "infiltration_output_schedule_available": false
     },
     "diagnostic_q14": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q14/referenceout.sql",
+      "sql": "revision_results/energyplus/diagnostic_q14/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,
@@ -187,7 +187,7 @@
       "infiltration_output_schedule_available": false
     },
     "diagnostic_q11_constant": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q11_constant/referenceout.sql",
+      "sql": "revision_results/energyplus/diagnostic_q11_constant/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,
@@ -205,7 +205,7 @@
       "infiltration_output_schedule_available": false
     },
     "diagnostic_q14_constant": {
-      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q14_constant/referenceout.sql",
+      "sql": "revision_results/energyplus/diagnostic_q14_constant/referenceout.sql",
       "variable": "Zone Ventilation Standard Density Volume Flow Rate",
       "n_hours": 8760,
       "flow_min_m3_s": 0.036878050263394836,

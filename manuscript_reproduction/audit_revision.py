@@ -31,6 +31,7 @@ for name,stage,q,variant,layers,flow,engine,ref in design['jobs']:
     if ref not in refs:
         sql=out/'energyplus'/ref/'referenceout.sql'
         audit=audit_airflow(sql); assert audit['continuous_ventilation_verified']
+        audit['sql']=str(sql.relative_to(ROOT))
         with sqlite3.connect(sql) as con:
             schedule=_hourly(con.cursor(),'Schedule Value','Inf_Mod')
         if schedule is not None:
