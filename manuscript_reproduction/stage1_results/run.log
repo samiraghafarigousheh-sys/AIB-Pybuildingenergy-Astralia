@@ -1,0 +1,46 @@
+Completed 0010
+Completed 0001
+Completed 0000
+Completed 0011
+Completed 0100
+Completed 0101
+Completed 1000
+Completed 0110
+Completed 0111
+Completed 1001
+Completed 1010
+Completed 1011
+Completed 1100
+Completed 1101
+Completed 1110
+Completed 1111
+mask  heating_kWh  cooling_kWh   total_kWh
+0000  1780.085191   628.652722 2408.737913
+0001  1801.596236   629.390205 2430.986441
+0010  1778.969863   628.647567 2407.617429
+0011  1800.479022   629.384920 2429.863942
+0100  3646.472542   312.244626 3958.717169
+0101  3672.371882   313.648274 3986.020156
+0110  3645.089768   312.180479 3957.270247
+0111  3670.988616   313.584068 3984.572684
+1000     0.689551    71.981408   72.670960
+1001     0.816704    72.562556   73.379260
+1010     0.683813    71.959679   72.643492
+1011     0.810322    72.540212   73.350534
+1100   108.644305    18.164091  126.808396
+1101   113.476909    18.561167  132.038077
+1110   108.392821    18.145633  126.538454
+1111   113.221858    18.542731  131.764589
+          factor      metric  single_repair_change_kWh  addition_to_other_three_change_kWh  order_averaged_change_kWh
+      neighbours heating_kWh              -1779.395639                        -3557.766758               -2668.636803
+      neighbours cooling_kWh               -556.671314                         -295.041337                -425.725057
+      neighbours   total_kWh              -2336.066953                        -3852.808095               -3094.361860
+           gains heating_kWh               1866.387351                          112.411536                 989.343815
+           gains cooling_kWh               -316.408096                          -53.997481                -185.071613
+           gains   total_kWh               1549.979256                           58.414055                 804.272202
+ground_perimeter heating_kWh                 -1.115328                           -0.255051                  -0.688166
+ground_perimeter cooling_kWh                 -0.005155                           -0.018437                  -0.022245
+ground_perimeter   total_kWh                 -1.120483                           -0.273488                  -0.710412
+    infiltration heating_kWh                 21.511045                            4.829037                  13.117822
+    infiltration cooling_kWh                  0.737483                            0.397098                   0.708924
+    infiltration   total_kWh                 22.248528                            5.226135                  13.826746

@@ -1,0 +1,15 @@
+{
+  "verification_type": "saved evidence audit; not a fresh simulation",
+  "revision_results/COMPLETE.json": {
+    "matching_source_hashes": 43
+  },
+  "stage1_results/COMPLETE.json": {
+    "matching_source_hashes": 85
+  },
+  "main_cases_recomputed_from_hourly": 12,
+  "stage1_combinations_recomputed_from_hourly": 16,
+  "stage1_endpoints_and_attribution": "passed",
+  "airflow_sql_and_input_audit": "passed: 12 cases, 7 references",
+  "manuscript_values": "passed: 146 values",
+  "status": "passed"
+}

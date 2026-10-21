@@ -1,0 +1,227 @@
+{
+  "status": "passed",
+  "cases": {
+    "original": {
+      "hours": 8760,
+      "internal_gains_kWh": 5341.220837999999,
+      "ground_flow_absolute_kWh": 101.2629281423506
+    },
+    "repaired": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 9.51061451814894e-12,
+      "transmission_surface_entries": 7
+    },
+    "without_infiltration": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 0.0,
+      "max_balance_residual_W": 7.403855306620244e-12,
+      "transmission_surface_entries": 7
+    },
+    "angular_only": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 1.0802025940392923e-11,
+      "transmission_surface_entries": 7
+    },
+    "convection_only": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 9.379164112033322e-12,
+      "transmission_surface_entries": 7
+    },
+    "both": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 9.872991313386592e-12,
+      "transmission_surface_entries": 7
+    },
+    "au_leakage_only": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 9.208633855450898e-12,
+      "transmission_surface_entries": 7
+    },
+    "au_construction_only": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 9.194423000735695e-11,
+      "transmission_surface_entries": 8
+    },
+    "au_combined": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 9.173817261398652e-11,
+      "transmission_surface_entries": 8
+    },
+    "q14_sensitivity": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 7.105427357601002e-15,
+      "max_balance_residual_W": 1.0189182830799837e-11,
+      "transmission_surface_entries": 7
+    },
+    "q11_constant": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 0.0,
+      "max_balance_residual_W": 9.389822253069724e-12,
+      "transmission_surface_entries": 7
+    },
+    "archive_reproduction": {
+      "hours": 8760,
+      "internal_gains_kWh": 728.1828,
+      "ground_flow_absolute_kWh": 0.0,
+      "max_airflow_conductance_error_W_K": 0.0,
+      "max_balance_residual_W": 7.0095040882733875e-12,
+      "transmission_surface_entries": 7
+    }
+  },
+  "references": {
+    "diagnostic_q4": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q4/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 7979,
+      "plant_off_hours_flow_positive": 7979,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.040536852728090426,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    },
+    "diagnostic_q11": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q11/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 7941,
+      "plant_off_hours_flow_positive": 7941,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.040532417646811425,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    },
+    "layers_q4": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/layers_q4/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 8334,
+      "plant_off_hours_flow_positive": 8334,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.040537385671632224,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    },
+    "layers_q11": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/layers_q11/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 8314,
+      "plant_off_hours_flow_positive": 8314,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.040532866256150366,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    },
+    "diagnostic_q14": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q14/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 7928,
+      "plant_off_hours_flow_positive": 7928,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.04053059101552816,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    },
+    "diagnostic_q11_constant": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q11_constant/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 7948,
+      "plant_off_hours_flow_positive": 7948,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.040531867515495805,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    },
+    "diagnostic_q14_constant": {
+      "sql": "/home/user/aib-pybuildingenergy-astralia/_release/x/manuscript_reproduction/revision_results/energyplus/diagnostic_q14_constant/referenceout.sql",
+      "variable": "Zone Ventilation Standard Density Volume Flow Rate",
+      "n_hours": 8760,
+      "flow_min_m3_s": 0.036878050263394836,
+      "flow_max_m3_s": 0.043074702277699106,
+      "flow_mean_m3_s": 0.04038913478055804,
+      "hours_flow_positive": 8760,
+      "plant_off_hours": 7926,
+      "plant_off_hours_flow_positive": 7926,
+      "schedule": "Always1",
+      "schedule_min": 1.0,
+      "schedule_max": 1.0,
+      "current_density_flow_mean_m3_s": 0.04052988614207243,
+      "continuous_ventilation_verified": true,
+      "infiltration_input_schedule_max_error": 0.0,
+      "infiltration_output_schedule_available": false
+    }
+  },
+  "historical_reproduction": "Original and corrected historical totals reproduced within reporting precision"
+}

@@ -1,0 +1,40 @@
+--- a/pybuildingenergy/src/pybuildingenergy/source/utils.py
++++ b/pybuildingenergy/src/pybuildingenergy/source/utils.py
+@@ -489,6 +489,16 @@
+     for key, value in _Q50_BY_CONSTRUCTION_AGE.items():
+         if key.lower() == band:
+             return float(value)
++    try:
++        year = float(band)
++        if np.isfinite(year) and year.is_integer() and 1 <= year <= 9999:
++            for upper, value in [(1900, 30.), (1920, 28.), (1945, 26.),
++                                 (1960, 24.), (1975, 20.), (1990, 16.),
++                                 (2005, 14.), (9999, 11.)]:
++                if year <= upper:
++                    return value
++    except (TypeError, ValueError):
++        pass
+     return float(_Q50_DEFAULT)
+ 
+ 
+@@ -607,7 +617,10 @@
+ 
+     # Stack + wind modulation, normalised so f == 1 at the reference conditions.
+     try:
+-        d_theta = abs(float(theta_int_c) - float(theta_ext_c))
++        # A prescribed temperature permits identical weather-driven airflow
++        # across engines. Without it, retain the native indoor feedback.
++        stack_temperature = _vent_cfg.get("infiltration_reference_temperature_C", theta_int_c)
++        d_theta = abs(float(stack_temperature) - float(theta_ext_c))
+     except (TypeError, ValueError):
+         d_theta = _INF_DT_REF
+     if not np.isfinite(d_theta):
+@@ -622,6 +635,8 @@
+     driving = _INF_C_STACK * d_theta + _INF_C_WIND * (u_wind ** 2)
+     reference = _INF_C_STACK * _INF_DT_REF + _INF_C_WIND * (_INF_U_REF ** 2)
+     f_mod = math.sqrt(max(driving, 0.0) / reference) if reference > 0.0 else 1.0
++    if "infiltration_multiplier_decimals" in _vent_cfg:
++        f_mod = round(f_mod, int(_vent_cfg["infiltration_multiplier_decimals"]))
+ 
+     n_inf = n_inf_mean * f_mod
+     return float(_RHO_CP_AIR_WH_M3K * volume * n_inf)

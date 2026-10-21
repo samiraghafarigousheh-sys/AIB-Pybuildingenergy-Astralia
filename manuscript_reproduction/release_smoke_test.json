@@ -1,0 +1,9 @@
+{
+  "fresh_repaired_run_hours": 8760,
+  "maximum_load_difference_W": 0.0,
+  "heating_kWh": 113.22185794817052,
+  "cooling_kWh": 18.542730739514145,
+  "focused_tests": "129 passed",
+  "dependency_install": "requirements-revision.txt installed successfully; Python 3.12",
+  "energyplus_rerun": false
+}

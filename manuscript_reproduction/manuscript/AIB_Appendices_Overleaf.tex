@@ -1,0 +1,432 @@
+% Include using \input{AIB_Appendices_Overleaf} before the bibliography.
+% Preamble requirements: amsmath, graphicx, booktabs, tabularx,
+% array, float, textcomp and hyperref.
+% The file defines its own Y column if no definition already exists.
+\makeatletter
+\@ifundefined{NC@find@Y}{\newcolumntype{Y}{>{\raggedright\arraybackslash}X}}{}
+\makeatother
+\setlength{\emergencystretch}{2em}
+\clearpage
+\appendix
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}}
+\numberwithin{equation}{section}
+\section{Stage 1 implementation details}
+\label{app:stage1}
+These appendices document the implementation and archived evidence described in the supplied project records. Equations describe the implemented model and its assumptions; their inclusion does not establish empirical calibration. Stage 1 includes the main comparison and sixteen additional annual combinations of four repair groups. Section~\ref{subsec:results_repairs} reports the combined and conditional effects; Appendix~\ref{app:attribution} gives all combinations and their verification.
+
+\subsection{Internal gains and the neighbouring-zone loop}
+\label{app:gains}
+The original routine first calculated the apartment's own scheduled gains,
+\begin{equation}
+G=A_{\rm use}(q_{\rm occ}s_{\rm occ}+q_{\rm app}s_{\rm app}+q_{\rm light}s_{\rm light}),
+\end{equation}
+where $A_{\rm use}$ is floor area in m$^2$, $q$ is a gain density in W/m$^2$, and $s$ is a dimensionless schedule fraction. The subscripts occ, app and light denote occupants, appliances and lighting, respectively. Thus $G$ is a heat-gain rate in W. It initialized the total to $G$. When neighbours were present, a second variable was also set to $G$, and each iteration added that variable plus a weighted copy. With $n$ neighbours and the scalar values $b$ and $F$ passed to the routine, the expression becomes
+\begin{equation}
+G_{\rm old}=G\left[1+n\{1+(1-b)F\}\right].
+\end{equation}
+The intermediate assignments and repeated update can be written explicitly as
+\begin{align}
+G_{\rm total}^{(0)}&=G, & G_{\rm dir}&=G,\\
+G_{\rm total}^{(k)}&=G_{\rm total}^{(k-1)}
++G_{\rm dir}+(1-b)F G_{\rm dir}, & k&=1,\ldots,n.
+\end{align}
+Thus $G_{\rm total}^{(n)}=G_{\rm old}$, whereas the repaired direct gain is
+\begin{equation}
+G_{\rm repaired}=G.
+\end{equation}
+
+The first 1 represents gains already counted before the loop. Each iteration adds another full apartment gain and a further weighted part. The values are derived from the target apartment's schedules and area, not separately calculated neighbour gains. With $n=5$, $F=1$ and $b\simeq0.733$, the multiplier is approximately 7.33. A scalar remaining from neighbour processing also made the old result sensitive to neighbour ordering.
+
+The repair sets direct apartment gains to $G$ once. This does not remove heat exchange with neighbours: their temperatures still drive shared-surface transfer. Tests vary neighbour number, ordering and reduction factors while requiring invariant target gains. The saved annual gain totals are 5341.22 and 728.18 kWh before and after repair. Their difference is not an equal heating or cooling saving. In the additional comparisons, correcting gains alone increased total demand by 1549.98 kWh; adding the correction after the other three groups increased it by 58.41 kWh (Appendix~\ref{app:attribution}).
+
+Code: \nolinkurl{source/ventilation.py}, \nolinkurl{VentilationInternalGains.internal_gains}. Coverage: \nolinkurl{test_internal_gains_adjacency.py} and the apartment gain-invariance tests.
+
+\subsection{Conditioned and unconditioned neighbours}
+\label{app:neighbours}
+The original option estimates an unconditioned buffer temperature. Before its cap is applied, the expression has the form
+\begin{equation}
+T_{\rm adj}=T_{\rm zone,prev}-b(T_{\rm zone,prev}-T_{\rm out})
++\frac{\Phi_{\rm adj}}{H_{\rm adj}}.
+\end{equation}
+This is not a specified-temperature boundary. The new \nolinkurl{conditioned} option and \nolinkurl{setpoint} allow such a boundary. Conditioned neighbours with usable setpoints are initialized and maintained at those values. Unconditioned neighbours retain the buffer branch; multiple neighbours use their own reduction factors and conductances. Missing conditioned setpoints generate a warning and use the documented fallback rather than being treated as measured temperatures.
+
+For an unconditioned neighbour $j$, the implemented cap is
+\begin{align}
+T^*_{{\rm adj},j,t}&=T_{{\rm zone},t-1}
+-b_j(T_{{\rm zone},t-1}-T_{{\rm out},t})
++\frac{\Phi_{\rm adj}}{H_{{\rm adj},j}},\\
+T_{{\rm adj},j,t}&=\min\left\{
+T_{{\rm out},t}+c_{\max}(T_{{\rm zone},t-1}-T_{{\rm out},t}),\;
+T^*_{{\rm adj},j,t}\right\},\qquad c_{\max}=1.
+\end{align}
+The gain term is set to zero if its denominator is zero. The revised multi-neighbour branch reads $b_j$ and $H_{{\rm adj},j}$ per neighbour. The scalar $\Phi_{\rm adj}$ remains the gain supplied by the current buffer calculation; this expression does not claim a new per-neighbour gain model.
+For a conditioned neighbour with a usable prescribed temperature,
+\begin{equation}
+T_{{\rm adj},j,t}=T_{{\rm set},j}=20\,{}^{\circ}\mathrm{C}
+\end{equation}
+in this case, including the seeded temperature states. These are two alternative boundary treatments, not two terms added together.
+
+The aggregation key includes neighbour identity. Neighbour mappings are rebuilt after aggregation so that computational indices continue to identify the correct shared boundary. Input validation checks flags and numeric temperatures. The final case uses five prescribed 20\,\textdegree C boundaries; the corridor condition remains unmeasured.
+
+Code: \nolinkurl{source/utils.py}, adjacency helpers and both single-zone cores; \nolinkurl{source/check_input.py}. Tests cover parsing, initialization, unconditioned behaviour and the executed apartment boundaries. The additional comparisons assign effects to the neighbour group as a whole: applied alone, it reduces annual demand by 2336.07 kWh. They do not subdivide that value among prescribed temperatures, initialization, aggregation and reduction-factor handling (Appendix~\ref{app:attribution}).
+
+\subsection{Ground contact and hemisphere}
+\label{app:ground}
+The old ground-area fallback could use floor area when no ground surface was found. The old classifier could also infer ground from zero sky view. Neither rule proves soil contact. The repaired classifier distinguishes explicitly declared ground, adjacent, adiabatic and outdoor surfaces. Ground area is summed only from declared ground boundaries; legacy inference is an explicit opt-in. A legitimate zero exposed perimeter is preserved.
+
+With zero ground area, conductance is zero and the virtual-temperature calculation remains finite. Real ground-contact cases retain their ground pathway, counted once. The coldest-month default is July for southern latitude and January otherwise, unless explicitly overridden.
+
+With $\mathcal G$ denoting the surfaces accepted as ground contact by the resolver, the executed no-ground case satisfies
+\begin{equation}
+A_{\rm gr}=\sum_{s\in\mathcal G}A_s=0,\qquad H_{\rm gr}=0,\qquad Q_{\rm gr}=0.
+\end{equation}
+The associated perimeter conductance is
+\begin{equation}
+H_{\rm edge}=P\psi_k,\qquad \psi_k=0.05\;\mathrm{W/(m\,K)}.
+\end{equation}
+The original sanitizer changed $P=0$ to $P=1$ m, creating $H_{\rm edge}=0.05$ W/K; the repaired input retains $P=0$.
+For real ground-contact cases, the default coldest month is
+\begin{equation}
+m_{\rm cold}=\begin{cases}
+7,&\text{usable latitude}<0,\\
+1,&\text{otherwise},
+\end{cases}
+\end{equation}
+unless a valid explicit month is supplied. The ground routine uses this month in its seasonal cosine terms, including
+\begin{equation}
+T_{{\rm int},m}=\overline T_{\rm int}
+-\widehat T_{\rm int}\cos\left[\frac{2\pi(m-m_{\rm cold})}{12}\right],
+\qquad m=1,\ldots,12.
+\end{equation}
+Here the implemented mean and amplitude are $(T_{\rm H,set}+T_{\rm C,set})/2$ and $(T_{\rm C,set}-T_{\rm H,set})/2$. This seasonal relation belongs to the ground routine; it is not a monthly prescribed apartment temperature. Its phase has no active ground-surface effect in the present elevated apartment.
+
+The original apartment output contains 101.26 kWh of absolute ground flow, meaning the sum of the magnitude of exchange. It is not the signed annual net flow or a heating saving. Corrected ground flow is zero. The final input already identifies shared floors and ceilings as adjacent surfaces, so ground classification and hemisphere phase do not explain the large conditioning reduction. The active ground-group load effect is removal of the artificial 1 m perimeter and its 0.05 W/K edge term. Added after the other three repairs, the group reduces demand by 0.27 kWh (Appendix~\ref{app:attribution}). Tests cover classification, area, zero-perimeter handling, real-ground cases and seasonal phase.
+
+\subsection{Ventilation and infiltration balance}
+\label{app:airflow}
+Designed ventilation and leakage are separate terms. For outdoor leakage, with loss positive outward,
+\begin{equation}
+Q_{\rm inf}=H_{\rm inf}(T_{\rm zone}-T_{\rm out}).
+\end{equation}
+The matrix receives $H_{\rm inf}$ on the zone-temperature coefficient and $H_{\rm inf}T_{\rm out}$ on the source side. Both are required. This is a consistency requirement for the added pathway; an intermediate assembly error must not be attributed automatically to the original release.
+
+For designed outdoor ventilation, the sensible conductance is
+\begin{equation}
+H_{\rm vent}=\rho_a c_{p,a}\dot V_{\rm vent}
+=1.204\times1006\times0.040=48.44896\;\mathrm{W/K}.
+\end{equation}
+The ventilation rate is inherited from the case-study input rather than established by measurement or a documented design specification. The legacy field \nolinkurl{flow_rate_per_person} stores the area-based value 2.0 L/(s m$^2$) in the executed branch. Multiplication by 20 m$^2$ gives 0.040 m$^3$/s, equivalent to 2.67 h$^{-1}$ for the 54 m$^3$ zone. It is retained continuously in both engines as a controlled diagnostic assumption. Its suitability for the occupied apartment is unverified, and the leakage sensitivity is conditional on this background ventilation.
+
+The total outdoor-air conductance in this experiment is
+\begin{equation}
+H_{\rm air}(t)=H_{\rm vent}+H_{\rm inf}(t),\qquad
+Q_{\rm air}(t)=H_{\rm air}(t)[T_{\rm zone}(t)-T_{\rm out}(t)].
+\end{equation}
+In matrix notation, adding infiltration changes the air-node coefficient and source as
+\begin{equation}
+\Delta A_{aa}=H_{\rm inf}(t),\qquad
+\Delta b_a=H_{\rm inf}(t)T_{\rm out}(t).
+\end{equation}
+The source-vector symbol $b_a$ here is unrelated to the neighbour reduction factor $b$.
+
+The infiltration area is 11.88+1.62=13.50 m$^2$, excluding shared surfaces. Designed ventilation has prescribed conductance $1.204\times1006\times0.040=48.44896$ W/K. The infiltration branch uses its separate implemented approximation of 0.33 Wh/(m$^3$ K). These conventions are recorded rather than silently assumed identical.
+
+Appendix~\ref{app:infiltration} gives the airflow conversion. Saved audits reconstruct hourly conductance independently. The infiltration-off case removes leakage from the repaired ISO model while retaining it in the EnergyPlus reference; restoring it adds 4.83 kWh of heating and 0.40 kWh of cooling. The unrounded total change rounds to 5.23 kWh.
+
+\subsection{Surface inventory storage and verification}
+\label{app:balance}
+The heat balance uses the combined air-and-fabric control volume. Surface transfer is evaluated at its external boundary using the same temperatures and coefficients as the solver. Adjacent and ground surfaces are included. Exterior short-wave absorption is subtracted from the reported net surface transfer; its gross value remains separately available and is not added again in Equation~\ref{eq:appbalance}.
+
+Previous temperatures are copied before solver arrays change. Areal node capacity is multiplied by area to obtain J/K. Storage then uses $C(T_t-T_{t-1})/\Delta t$ with the correct units. The residual is reported independently, and separate storage charge/discharge totals expose cancellation. Aggregation produces seven diagnostic entries from eight input surfaces because the two identical windows are grouped. Construction scenarios preserve all eight entries.
+
+The node-capacity and storage expressions are
+\begin{align}
+C_{s,p}&=A_s\kappa_{s,p},\\
+\dot U_t&=\frac{C_{\rm air}(T_{{\rm air},t}-T_{{\rm air},t-1})
++\sum_{s,p}C_{s,p}(T_{s,p,t}-T_{s,p,t-1})}{\Delta t_s}.
+\end{align}
+Here $\kappa$ is J/(m$^2$ K), $C$ is J/K and $\Delta t_s$ is seconds, so $\dot U$ is W. The air capacity includes the capacity assigned to that state; terms already assigned there are not added again in the surface sum. With inward-positive gains and signed HVAC heat, and outward-positive losses,
+\begin{equation}\label{eq:appbalance}
+r_t=\Phi_{{\rm HVAC},t}+\Phi_{{\rm int},t}+\Phi_{{\rm sol},t}
+-Q_{{\rm ve},t}-Q_{{\rm tr},t}-Q_{{\rm ground},t}
+-Q_{{\rm tb},t}-\dot U_t.
+\end{equation}
+$Q_{\rm tr}$ includes the net outer-boundary transfer of adjacent and any represented ground surfaces. A separate ground term is suppressed when that surface inventory already counts the pathway. Ground-unrepaired experimental states deliberately retain the legacy diagnostic and are not closure evidence (Appendix~\ref{app:attribution}).
+
+Saved records report finite loads for every corrected hour and residuals below $10^{-6}$ W. Software tests examine gain accounting, neighbour treatment, ground routing, angular properties, wind conversion, construction inputs and balance reporting. The test counts in Section~\ref{subsec:results_verification} refer to the recorded verification run.
+
+The revised package also includes optional plotting imports, offline profile generation, input warnings and latent diagnostics. Those are documented in the separate code-change inventory. Latent estimates are not a validated transient moisture model and are excluded from all headline energy comparisons.
+
+
+\subsection{Separate repair comparisons and interactions}
+\label{app:attribution}
+The four switches are N (neighbours), G (direct gains), D (ground/perimeter) and I (infiltration). A 1 applies repaired behaviour and a 0 restores the corresponding archived behaviour. N restores the original buffer treatment, last-neighbour scalar reduction factor and surface aggregation when off. G uses the archived gain method when off. D uses the archived ground-area resolver and ground routine, with the 1 m perimeter produced by the original input sanitizer. I omits the new infiltration conductance when off. The final JSON declares $q_{50}=4$ in every case; the switch controls whether that pathway is executed. All groups use the final common calendar and fixed Stage 2 methods.
+
+The experiment uses isolated processes and temporary method substitutions. Archived methods are loaded directly from the retained source. The production engine and original archive are not modified. Reporting corrections are retained across all combinations. For this final input, the unrepaired and repaired ground classifiers both identify the explicitly adjacent shared surfaces as ADJ; no GR surface is present. The diagnostic therefore does not quantify a classification or hemisphere effect for actual ground-contact buildings.
+
+\begin{table}[H]\centering\small
+\caption{All Stage 1 repair combinations. Switch order is NGDI; energy is kWh.}\label{tab:stage1all}
+\begin{tabular}{@{}lrrr@{}}\toprule
+NGDI & Heating & Cooling & Total\\\midrule
+\nolinkurl{0000} & 1780.09 & 628.65 & 2408.74 \\
+\nolinkurl{0001} & 1801.60 & 629.39 & 2430.99 \\
+\nolinkurl{0010} & 1778.97 & 628.65 & 2407.62 \\
+\nolinkurl{0011} & 1800.48 & 629.38 & 2429.86 \\
+\nolinkurl{0100} & 3646.47 & 312.24 & 3958.72 \\
+\nolinkurl{0101} & 3672.37 & 313.65 & 3986.02 \\
+\nolinkurl{0110} & 3645.09 & 312.18 & 3957.27 \\
+\nolinkurl{0111} & 3670.99 & 313.58 & 3984.57 \\
+\nolinkurl{1000} & 0.69 & 71.98 & 72.67 \\
+\nolinkurl{1001} & 0.82 & 72.56 & 73.38 \\
+\nolinkurl{1010} & 0.68 & 71.96 & 72.64 \\
+\nolinkurl{1011} & 0.81 & 72.54 & 73.35 \\
+\nolinkurl{1100} & 108.64 & 18.16 & 126.81 \\
+\nolinkurl{1101} & 113.48 & 18.56 & 132.04 \\
+\nolinkurl{1110} & 108.39 & 18.15 & 126.54 \\
+\nolinkurl{1111} & 113.22 & 18.54 & 131.76 \\
+\bottomrule\end{tabular}\end{table}
+
+With $E(S)$ the annual demand when repair set $S$ is enabled, the effect of adding group $i$ is $E(S\cup\{i\})-E(S)$. Negative values reduce demand. To avoid selecting one repair order as the only explanation, the average incremental effect is calculated over all 24 orders:
+\begin{equation}
+a_i=\sum_{S\subseteq R\setminus\{i\}}
+\frac{|S|!(3-|S|)!}{4!}\left[E(S\cup\{i\})-E(S)\right],\qquad |R|=4.
+\end{equation}
+The weights count how often each preceding repair set occurs. The resulting allocation sums exactly to the full package change but includes interactions; it is not a unique causal partition or a retrofit saving.
+
+\begin{table}[H]\centering\small
+\caption{Conditional and order-averaged changes in annual total demand, kWh.}\label{tab:stage1allocation}
+\begin{tabularx}{\linewidth}{@{}Yrrr@{}}\toprule
+Repair group & Applied alone & After other three & Order average\\\midrule
+Neighbours & -2336.07 & -3852.81 & -3094.36 \\
+Direct gains & 1549.98 & 58.41 & 804.27 \\
+Ground/perimeter & -1.12 & -0.27 & -0.71 \\
+Infiltration & 22.25 & 5.23 & 13.83 \\
+\bottomrule\end{tabularx}\end{table}
+
+The recorded combined change is -2276.97 kWh. Tables retain the precision of the supplied records; differences calculated from rounded entries may differ by 0.01 kWh from reported changes. The sum of the four changes applied individually to the original state is -764.96 kWh, leaving a -1512.01 kWh difference due to nonadditivity. This difference is a combined interaction measure relative to the original state, not one named pairwise interaction. For example, the gain correction adds 1549.98 kWh alone but only 58.41 kWh after the other three repairs.
+
+All sixteen runs returned 8760 finite hourly loads. States 0000, 1111 and 1110 reproduced the saved original, repaired and infiltration-off hourly conditioning loads with a maximum difference of 0 W. Repaired gains were identical in all eight G=1 states, and enabled ventilation-plus-infiltration conductance was identical in all eight I=1 states. Ground flow was zero in all eight D=1 states, whose largest balance residual was $1.36\times10^{-11}$ W. D=0 deliberately retains the nonphysical ground diagnostic; its residual is not a closure check. The physical conditioning load and the legacy diagnostic must be distinguished.
+
+The reproducible scripts are \nolinkurl{stage1_worker.py} and \nolinkurl{run_stage1_attribution.py}. The evidence includes all hourly files, \nolinkurl{combinations.csv}, \nolinkurl{attribution.csv}, input JSON, weather, saved endpoints and reference, and a \nolinkurl{COMPLETE.json} record of checks and source hashes. These group-level results apply to the stated apartment assumptions, not to every repair in the source inventory or every building configuration.
+
+\section{Stage 2 physical-method details}
+\label{app:stage2}
+\subsection{Angular glazing transmission}
+\label{app:angular}
+The fixed-method case uses $F_w=1$. The optional constant-0.9 setting is available in the code but is not used in the primary comparisons. The angular branch uses
+\begin{equation}
+F_{\rm dir}(\theta)=\operatorname{clip}
+\left(1-az^{\alpha}-bz^{\beta}-cz^{\gamma},0,1\right),
+\qquad z=\operatorname{clip}(\theta/(90^{\circ}),0,1).
+\end{equation}
+Incidence angle is measured from the surface normal. For the two-pane assumption,
+\[
+(a,b,c)=(-0.58903,1.38944,0.19959),\quad
+(\alpha,\beta,\gamma)=(15.1131,6.2706,2.3007).
+\]
+For these rounded coefficients,
+\begin{equation}
+a+b+c=1,\qquad F_{\rm dir}(0^{\circ})=1,\qquad
+F_{\rm dir}(90^{\circ})=0.
+\end{equation}
+These endpoint relationships follow from the normalized incidence variable and positive fitted exponents.
+
+These are fitted coefficients for an idealized Fresnel/Beer--Lambert clear-glass curve with refractive index 1.52, glass thickness 4 mm and absorption coefficient 26 m$^{-1}$. The fitting script is \nolinkurl{tools/derive_karlsson_roos_coefficients.py}. The functional form is motivated by Karlsson and Roos~\cite{karlsson2000}; the values are project-derived, not a reproduced published table.
+
+The diffuse factor is based on the hemispherical average (with integration angles expressed in radians),
+\begin{equation}
+F_{\rm diff}=2\int_0^{\pi/2}F_{\rm dir}(\theta)\cos\theta\sin\theta\,d\theta,
+\end{equation}
+implemented as 0.85534 for the two-pane default. With the diffuse irradiance stream supplied by the irradiance calculation, direct irradiance and beam shading factor,
+\begin{equation}
+F_w=\frac{F_{\rm diff}I_{\rm diff}+F_{\rm dir}I_{\rm dir}F_{\rm sh}}
+{I_{\rm diff}+I_{\rm dir}F_{\rm sh}}.
+\end{equation}
+At negligible incident radiation, the diffuse factor is returned to avoid division by zero. The multiplier modifies the retained normal-incidence solar factor. It does not establish a product-specific match to the EnergyPlus glazing optics. Endpoint, bounds and weighting checks support the implemented calculation; Section~\ref{subsec:results_physical_methods} reports the actual energy effect.
+
+\subsection{Exterior convection and local wind}
+\label{app:convection}
+The selected branch is
+\begin{equation}
+h_{ce}(t)=\max\{2,4+4u_{\rm local}(t)\}\quad\text{W/(m$^2$ K)}.
+\end{equation}
+It gives 20 W/(m$^2$ K) at 4 m/s and 4 W/(m$^2$ K) at zero wind. Other available correlations are not tested in this experiment. Only outdoor-air-exposed walls and windows receive the change.
+
+The implemented terrain-and-height conversion is
+\begin{equation}
+u_{\rm local}=u_{\rm station}
+\left(\frac{\delta_{\rm station}}{z_{\rm station}}\right)^{\alpha_{\rm station}}
+\left(\frac{z_{\rm facade}}{\delta_{\rm site}}\right)^{\alpha_{\rm site}}.
+\end{equation}
+The declared station values are $\alpha=0.14$, $\delta=270$ m and $z=10$ m. The suburban-site values are $\alpha=0.22$ and $\delta=370$ m. Facade height is $(3-0.5)\times2.7=6.75$ m, giving a factor of approximately 0.65741. These inputs describe the implemented scenario, not measured facade wind. Tests cover the identity case, explicit disabling, height and terrain responses, and separation from infiltration wind.
+
+Construction resistance remains
+\begin{equation}
+R_c=\frac{1}{U_{\rm rated}}-R_{si,0}-R_{se,0}.
+\end{equation}
+Here $R_{si,0}$ and $R_{se,0}$ are the standard internal and external film resistances. Hourly external-film changes act at the boundary while $R_c$ stays fixed. This separates weather-dependent thermal exchange from the optical correction in Appendix~\ref{app:angular}.
+
+\subsection{Controlled comparison matrix}
+\label{app:physical_matrix}
+\begin{table}[H]\centering\small
+\caption{Stage 2 controls. All four rows retain the repairs, diagnostic construction and $q_{50}=4$.}\label{tab:bmethods}
+\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Case & Angular multiplier & Exterior convection\\\midrule
+Repaired & 1.0 & Fixed\\
+Angular only & Hourly angular & Fixed\\
+Convection only & 1.0 & Local-wind dependent\\
+Both & Hourly angular & Local-wind dependent\\\bottomrule
+\end{tabularx}\end{table}
+The repaired run is reused across Stages 1 and 2; it is not an extra run. The reference input model, gains and prescribed airflow remain fixed. Section~\ref{subsec:results_physical_methods} shows that the best annual-bias case differs from the best total-load RMSE case.
+
+\section{Australian input scenarios and reproducibility}
+\label{app:australian}
+\subsection{Explicit permeability scenarios}
+\label{app:age}
+The final comparisons prescribe $q_{50}=4$, 11 and 14 $\mathrm{m^3/(h\,m^2)}$ as illustrative leakage scenarios. The value 4 is the retained low-leakage diagnostic input, 11 is the primary higher-leakage input, and 14 is an additional sensitivity input. None is a measured property of the apartment or a calibrated prediction from its construction year.
+
+Australian airtightness studies motivate examining leakage variability, but do not establish these particular values for this apartment. In particular, whole-unit apartment tests may include leakage through shared boundaries, whereas the present model applies permeability to the 13.5 m$^2$ outdoor-exposed envelope only. No empirical calibration between those conventions is claimed.
+
+The archived code contains a provisional construction-age lookup and fallback. All final scenarios explicitly specify permeability, so the lookup is not needed to reproduce the reported loads. It is retained in the source for provenance, not recommended as an evidence-based Australian age model. The historical lookup table is therefore omitted from the manuscript.
+
+\subsection{Infiltration equations and shared hourly prescription}
+\label{app:infiltration}
+Permeability and air-change rate are distinct:
+\begin{equation}
+n_{50}=\frac{q_{50}A_{\rm env}}{V},\qquad n_{\rm ref}=\frac{n_{50}}{20}.
+\end{equation}
+Here $A_{\rm env}=13.5$ m$^2$ and $V=54$ m$^3$. For $q_{50}=4,11,14$, the corresponding $n_{50}$ values are 1.00, 2.75 and 3.50 h$^{-1}$, and $n_{\rm ref}$ values are 0.0500, 0.1375 and 0.1750 h$^{-1}$. Division by 20 is the chosen approximation, not a dwelling-specific measured conversion.
+
+The prescribed weather multiplier is
+\begin{equation}
+f(t)=\sqrt{\frac{0.015|20-T_{\rm out}(t)|+0.001u_{\rm station}(t)^2}
+{0.015\times10+0.001\times4^2}}.
+\end{equation}
+Temperature is in \textdegree C and wind in m/s, using the coefficient/unit convention implemented in the code. The reference conditions are a 10 K difference and station wind of 4 m/s. The multiplier is rounded to six decimal places and applied as
+\begin{equation}
+n_{\rm inf}(t)=n_{\rm ref}f(t),\quad
+\dot V_{\rm inf}(t)=\frac{Vn_{\rm inf}(t)}{3600},\quad
+H_{\rm inf}(t)=0.33Vn_{\rm inf}(t).
+\end{equation}
+Volume flow is in m$^3$/s and conductance in W/K. Constant-flow cases set $f=1$. The weather multiplier has annual mean 0.853, so these alternatives do not have matched mean airflow.
+
+Both engines receive the schedule generated before simulation. The native option driven by predicted indoor temperature is not used. The independent audit checks ISO conductance and the EnergyPlus input design flow and all 8760 schedule values. The saved output does not expose the infiltration schedule as an output series, so this must not be described as direct verification of measured infiltration. Designed ventilation is checked separately and remains active throughout the year.
+
+The 20~$^\circ$C stack-reference temperature is a prescribed airflow input, not the simulated indoor temperature or a heating setpoint. Infiltration uses station wind, while exterior convection uses the separately adjusted facade wind in Appendix~\ref{app:convection}. The empirical numerator and denominator use the same coefficient and unit convention; their ratio and $f(t)$ are dimensionless.
+
+For apartment application, measured whole-unit leakage should not be transferred to the outdoor-only area convention without checking which boundaries the test includes. This study excludes inter-apartment leakage and does not model a pressure network. Section~\ref{subsec:results_repairs} reports the infiltration ablation, Section~\ref{subsec:results_leakage_sensitivity} reports airflow and leakage sensitivities, and Section~\ref{subsec:results_australian_inputs} reports the primary leakage scenario.
+
+\subsection{Illustrative material properties and assemblies}
+\label{app:construction}
+\begin{table}[H]\centering\small
+\caption{Material assumptions used in the construction scenarios.}\label{tab:materials}
+\begin{tabularx}{\linewidth}{@{}Yrrrr@{}}\toprule
+Material & $d$ (m) & $k$ (W/m K) & $\rho$ (kg/m$^3$) & $c$ (J/kg K)\\\midrule
+Brick & 0.110 & 0.77 & 1700 & 840\\
+Insulation & 0.060 & 0.04 & 20 & 1030\\
+Plasterboard & 0.013 & 0.25 & 800 & 1090\\
+Concrete & 0.200 & 1.70 & 2300 & 880\\
+Block & 0.090 & 0.60 & 1400 & 840\\\bottomrule
+\end{tabularx}\end{table}
+For layer $j$, the implemented property calculations are
+\begin{align}
+R_j&=\frac{d_j}{k_j}, & \kappa_j&=\rho_jc_jd_j,\\
+R_{\rm material}&=\sum_jR_j, & \kappa_{\rm total}&=\sum_j\kappa_j.
+\end{align}
+Resistance is m$^2$ K/W and areal capacity is J/(m$^2$ K). The corresponding U-value is
+\begin{equation}
+U=\left(R_{si}+\sum_jR_j+R_{se}\right)^{-1}.
+\end{equation}
+Fixed boundary films follow the assigned surface type. Table~\ref{tab:assemblies} gives the executed aggregate inputs.
+\begin{table}[H]\centering\small
+\caption{Assembly inputs, listed from outdoor or neighbouring side.}\label{tab:assemblies}
+\begin{tabularx}{\linewidth}{@{}p{.20\linewidth}Yrr@{}}\toprule
+Element & Assembly & $U$ & $\kappa$\\
+& & W/(m$^2$ K) & J/(m$^2$ K)\\\midrule
+Exterior wall & Brick / insulation / plasterboard & 0.53552 & 169652\\
+Shared walls & Plasterboard / block / plasterboard & 1.93752 & 128512\\
+Floor and ceiling & Plasterboard / concrete / plasterboard & 2.38618 & 427472\\\bottomrule
+\end{tabularx}\end{table}
+These assemblies are illustrative and have not been established by an as-built survey. Both resistance and capacity change from the diagnostic case. The slab U-value increases even though the exterior-wall U-value decreases; a blanket description of ``improved insulation'' would therefore be inaccurate.
+
+The ordinary \nolinkurl{class_i} allocation remains active. Executed inputs contain \nolinkurl{scenario_layers} for property calculation/export, but no \nolinkurl{construction_layers} activating the experimental node mapping. EnergyPlus retains explicit layers and prescribed neighbouring-side films. Window U-value, solar factor and pane assumption are unchanged. Section~\ref{subsec:results_australian_inputs} assesses the resulting scenario, not a retrofit or isolated mass effect.
+
+\subsection{Complete run matrix}
+\label{app:runs}
+\begin{table}[H]\centering\scriptsize
+\caption{Twelve ISO runs and their seven reference input models. D denotes diagnostic construction; M denotes material-derived properties; W denotes weather flow and C constant flow. All runs except Original use the repaired engine.}\label{tab:runs}
+\begin{tabularx}{\linewidth}{@{}YrrrrY@{}}\toprule
+Case & $q_{50}$ & Fabric & Flow & Methods & Reference\\\midrule
+Original & 4 & D & W & Fixed & D4W\\
+Repaired & 4 & D & W & Fixed & D4W\\
+Without infiltration & 0 & D & W & Fixed & D4W (ablation)\\
+Angular only & 4 & D & W & Angular & D4W\\
+Convection only & 4 & D & W & Wind & D4W\\
+Both & 4 & D & W & Both & D4W\\
+Leakage only & 11 & D & W & Both & D11W\\
+Construction only & 4 & M & W & Both & M4W\\
+Combined inputs & 11 & M & W & Both & M11W\\
+Leakage sensitivity & 14 & D & W & Both & D14W\\
+Constant-flow sensitivity & 11 & D & C & Both & D11C\\
+Historical reproduction & 14 & D & C & Fixed & D14C\\\bottomrule
+\end{tabularx}\end{table}
+The table lists the twelve main runs. Sixteen additional Stage 1 repair-combination runs share D4W and are listed in Appendix~\ref{app:attribution}; no new EnergyPlus reference is required. The original row shows declared scenario inputs; its thermal code lacks some revised capabilities. In the main without-infiltration run, the saved input explicitly sets $q_{50}=0$ to remove leakage. In the separate Stage 1 switch experiment, the input retains $q_{50}=4$ and switch I disables its contribution. The two implementations reproduce the same saved conditioning-load endpoint; neither represents a measured permeability change. This row deliberately shares D4W. Stage~1 is reported in Section~\ref{subsec:results_repairs}, Stage~2 in Section~\ref{subsec:results_physical_methods}, leakage sensitivities in Section~\ref{subsec:results_leakage_sensitivity}, Australian input scenarios in Section~\ref{subsec:results_australian_inputs}, and historical reproduction in Section~\ref{subsec:results_verification}.
+
+The Stage~3 two-factor matrix crosses $q_{50}=4$ and 11 with diagnostic and material-derived construction. Its four rows are Both, Leakage only, Construction only and Combined inputs. For either engine, let $E_{00}$ denote the reference, $E_{10}$ leakage only, $E_{01}$ construction only and $E_{11}$ combined inputs. The annual interaction is
+\begin{equation}
+\mathcal I_{\rm inputs}=E_{11}-E_{10}-E_{01}+E_{00}.
+\end{equation}
+Negative interaction means the combined result is below the additive prediction. This is a scenario interaction, not an allocation of measured physical savings. The analogous Stage~2 interaction uses Both, Angular only, Convection only and Repaired. Weather-versus-constant airflow changes both the mean and temporal distribution and therefore does not isolate timing alone.
+
+\subsection{Source identity and evidence boundary}
+\label{app:provenance}
+For the saved signed hourly conditioning power $Q_{{\rm HC},t}$, positive denotes heating. Annual sensible needs are
+\begin{align}
+E_{\rm H}&=\frac{1}{1000}\sum_t\max(Q_{{\rm HC},t},0)\Delta t_h,\\
+E_{\rm C}&=\frac{1}{1000}\sum_t\max(-Q_{{\rm HC},t},0)\Delta t_h,\\
+E_{\rm total}&=E_{\rm H}+E_{\rm C}.
+\end{align}
+Power is W, $\Delta t_h=1$ h and energy is kWh. For heating, cooling or total considered separately,
+\begin{align}
+\mathrm{Bias}(\%)&=100\frac{E_{\rm ISO}-E_{\rm EP}}{E_{\rm EP}},\\
+\mathrm{RMSE}&=\sqrt{\frac{1}{N}\sum_{t=1}^{N}(P_{{\rm ISO},t}-P_{{\rm EP},t})^2},\qquad N=8760.
+\end{align}
+Bias is undefined if reference energy is zero. The total-power series is positive heating plus positive cooling, rather than their signed cancellation. RMSE is W and includes all reporting hours.
+
+The archived thermal baseline matches the original project source commit
+\begin{center}\footnotesize\nolinkurl{2e6e910c1297ff3e88bad3184a4f1e74e1a93815}\end{center}
+Its provenance file identifies upstream commit
+\begin{center}\footnotesize\nolinkurl{1236ace2fcc54f570cc4e7686b6fa3c1fa8b0573}.\end{center}
+The package version string remains 2.0.3 in the revised code; that number alone cannot distinguish the modification set. The completed-run record contains hashes for the executed sources and runner. The release audit confirms that all 43 hashes in the main-run source record and all 85 hashes in the Stage 1 source/input record match the supplied files. These records overlap and are not counts of unique files. Annual energies, hourly error metrics and repair allocations were independently recalculated from the saved hourly outputs; this audit did not rerun the annual simulations. The original baseline uses the shared calendar generator for comparison but retains its archived thermal calculation.
+
+The weather filename is
+\begin{center}\footnotesize\nolinkurl{AUS_VIC_Melbourne-Essendon.Fields.958660_TMYx.2011-2025.epw}\end{center}
+Its SHA-256 is recorded below:
+\begin{center}\footnotesize\nolinkurl{d4453a2fe299304554a4f7ba14b8857cff701dd11f407975627ecd3ee9aaeb4d}\end{center}
+The project retains scenario JSON files, reference IDFs, hourly outputs, monthly totals, \nolinkurl{comparison.csv}, \nolinkurl{design.json}, \nolinkurl{COMPLETE.json} and \nolinkurl{audit_revision.json}. These identify the scenarios behind the tables. The source, inputs and saved evidence are archived in the \nolinkurl{AIB_Repository.zip} asset of release v1.0.0 at \url{https://github.com/samiraghafarigousheh-sys/AIB-Pybuildingenergy-Astralia/releases/tag/v1.0.0}. The script \nolinkurl{paper_values.py} recalculates every value quoted in the manuscript, including the winter heat-balance terms in Table~\ref{tab:winter-balance}, from these files.
+
+Stage 1 attribution covers four repair groups; unresolved assumptions and validation limits are discussed in Section~\ref{sec:discussion}.
+
+\section{EnergyPlus reference settings and remaining model differences}
+\label{app:ep_alignment}
+The following settings were checked against the seven saved \nolinkurl{reference.idf} files, EnergyPlus \nolinkurl{referenceout.eio} reports, scenario inputs and executed pyBuildingEnergy source. Object definitions follow the EnergyPlus 24.1 documentation~\cite{energyplus}. These settings describe the computational comparison, not measured properties of the apartment.
+
+\subsection{Opaque constructions and retained internal storage}
+Diagnostic opaque constructions use \nolinkurl{Material:NoMass} in EnergyPlus, with material resistances 0.83, 0.14 and 0.2956 m$^2$ K/W for the exterior wall, shared walls and slabs, respectively. pyBuildingEnergy assigns zero capacity to these opaque elements. Zero opaque-element capacity does not mean zero storage in the whole zone: pyBuildingEnergy retains an internal-capacity parameter of 10,000 J/(m$^2$ K), equivalent to 200 kJ/K over the floor area, in addition to air capacity. EnergyPlus represents nominally 200 kJ/K using an \nolinkurl{InternalMass} object with area 20 m$^2$, thickness 0.01 m, density 1000 kg/m$^3$ and specific heat 1000 J/(kg K). The totals are matched nominally, but storage placement and surface coupling differ between the models.
+
+The material-derived scenarios use explicit \nolinkurl{Material} layers in EnergyPlus and the aggregate resistance and capacity with the retained \nolinkurl{class_i} allocation in pyBuildingEnergy. EnergyPlus reports conduction transfer functions; the ISO model uses its nodal resistance--capacitance formulation.
+
+\subsection{Neighbouring boundaries and temperature control}
+The five shared boundaries use \nolinkurl{SurfaceProperty:OtherSideCoefficients} in EnergyPlus. A constant 20 $^\circ$C term has coefficient 1; outdoor-air, ground, zone-air and wind-dependent temperature terms have coefficients zero. No neighbouring thermal zones are simulated. The diagnostic neighbouring-side film coefficient is 7.6923 W/(m$^2$ K). Material-derived cases prescribe a separate neighbouring-side coefficient from each corresponding surface input. pyBuildingEnergy prescribes the same 20 $^\circ$C neighbouring temperature. This is a shared boundary assumption, not a measurement.
+
+pyBuildingEnergy controls $T_{\rm op}=0.5T_{\rm air}+0.5T_{\rm r}$, with $T_{\rm r}$ calculated from area-weighted inside surface temperatures. EnergyPlus uses \nolinkurl{ZoneControl:Thermostat:OperativeTemperature} with a constant radiative fraction of 0.5 and its own mean-radiant-temperature calculation. The weighting and setpoint schedules agree, but the surface temperatures and radiant-temperature formulations need not be identical.
+
+\subsection{Glazing, surface exchange and solar distribution}
+EnergyPlus uses \nolinkurl{WindowMaterial:SimpleGlazingSystem} with $U=5.4$ W/(m$^2$ K) and an input solar heat-gain coefficient of 0.4875. The latter is $0.65\times(1-0.25)$, accounting for the frame fraction used by pyBuildingEnergy. The ISO solar factor before the frame adjustment is 0.65; its optional angular multiplier is described in Appendix~\ref{app:angular}. Nominal solar inputs are aligned through this adjustment, but the engines do not use identical angular optical models. The two-pane setting is an ISO optical assumption, not an explicit two-layer EnergyPlus glazing construction.
+
+EnergyPlus initialization reports identify TARP interior convection, DOE-2 exterior convection and \nolinkurl{FullInteriorAndExterior} solar distribution. pyBuildingEnergy uses its retained interior exchange, fixed or tested wind-dependent exterior convection, and its prescribed solar allocation. These formulation differences remain in the comparison. EnergyPlus uses six timesteps per hour and pyBuildingEnergy one; outputs are compared hourly.
+
+\subsection{Airflow, gains and verification scope}
+EnergyPlus represents continuous designed ventilation using \nolinkurl{ZoneVentilation:DesignFlowRate}, with 0.040 m$^3$/s, an always-on schedule and constant flow coefficients. Infiltration uses \nolinkurl{ZoneInfiltration:DesignFlowRate} with scenario-specific design flow and the prescribed hourly schedule in Appendix~\ref{app:infiltration}. The saved SQL output confirms continuous ventilation; infiltration flow and schedule are checked in the input files.
+
+Corrected internal-gain design levels are 84 W for occupants, 60 W for appliances and zero for lighting, on the shared schedules. EnergyPlus uses a radiant fraction of 0.6, corresponding to the ISO convective fraction of 0.4. Ideal conditioning is used and the comparison extracts sensible heating and cooling. These input checks do not imply identical transient response, calibration or measured-building accuracy.

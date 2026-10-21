@@ -1,0 +1,274 @@
+% ============================================================================
+% Manuscript fixes for "Revising pyBuildingEnergy for an Australian Apartment"
+% Each block names the location, what to change, and LaTeX to paste.
+% All numbers below were recomputed from the saved hourly outputs; none of the
+% existing results in the paper change.
+% Group A = required for consistency; Group B = strengthens the paper;
+% Group C = small corrections.
+% ============================================================================
+
+
+% ----------------------------------------------------------------------------
+% A1. Section 4.4 -- DELETE the duplicated paragraph
+% ----------------------------------------------------------------------------
+% Delete the whole paragraph that begins
+%   "The combined demand change was nearly additive in pyBuildingEnergy. The
+%    interaction, defined as ... approximately -0.1 kWh. The corresponding
+%    interaction calculated from the displayed EnergyPlus totals ..."
+% The paragraph before it already reports both interactions from unrounded
+% outputs; this one repeats it and contradicts it ("displayed totals").
+
+
+% ----------------------------------------------------------------------------
+% A2. Abstract -- state that the headline figures use the diagnostic construction
+% ----------------------------------------------------------------------------
+% REPLACE: "Combined implementation and boundary-condition changes reduce
+%           annual sensible demand from 2408.74 to 131.76 kWh"
+% WITH:
+For the diagnostic zero-capacity construction, combined implementation and
+boundary-condition changes reduce annual sensible demand from 2408.74 to
+131.76~kWh
+% Make the same qualification in the first sentence of the second paragraph
+% of the Conclusion ("Stage 1 produced the largest improvement. For the
+% diagnostic construction, annual sensible demand decreased ...").
+
+
+% ----------------------------------------------------------------------------
+% A3. Section 3.1 (or a row in Table 1) -- operating schedules
+% ----------------------------------------------------------------------------
+% ADD after the sentence introducing Table 1:
+Conditioning is intermittent. The heating setpoint of 18\,\textdegree C applies
+from 19:00 to 23:00 on weekdays and from 18:00 to 23:00 at weekends, with a
+15\,\textdegree C setback at other times. The cooling setpoint of
+26\,\textdegree C applies from 17:00 to 23:00 on weekdays and from 09:00 to
+23:00 at weekends, with a 28\,\textdegree C setback otherwise. Designed
+ventilation operates continuously. Both engines use the same weekday and
+weekend schedules.
+
+
+% ----------------------------------------------------------------------------
+% A4. Section 3.5.1 -- say which factor the fixed case uses
+% ----------------------------------------------------------------------------
+% ADD at the end of the first paragraph (after "...regardless of the actual
+% direction of sunlight."):
+The fixed-transmittance configurations in this study use a multiplier of 1;
+the constant 0.9 option is not used.
+
+
+% ----------------------------------------------------------------------------
+% A5. Section 3.5 (end of the introductory paragraph) -- code defaults
+% ----------------------------------------------------------------------------
+% ADD:
+In the released code, both modifications are enabled by default; the
+fixed-method configurations disable them explicitly.
+
+
+% ----------------------------------------------------------------------------
+% A6. Appendix D3 -- external shading
+% ----------------------------------------------------------------------------
+% ADD at the end of the first paragraph of D3:
+No external shading is represented in either engine. The case documentation
+describes a 0.25\,m overhang above the windows; it is excluded from both input
+models so that the reference contains no unmatched shading surface.
+
+
+% ----------------------------------------------------------------------------
+% A7. Appendix D4 -- source of the gain levels
+% ----------------------------------------------------------------------------
+% REPLACE: "Corrected internal-gain design levels are 84 W for occupants, 60 W
+%           for appliances and zero for lighting, on the shared schedules."
+% WITH:
+Internal-gain design levels are the EN~16798-1 residential-apartment values of
+4.2, 3.0 and 0~W/m\textsuperscript{2} for occupants, appliances and lighting,
+giving 84, 60 and 0~W over the 20~m\textsuperscript{2} floor area, on the
+shared hourly schedules.
+
+
+% ----------------------------------------------------------------------------
+% A8. Appendix A1 -- multiplier value
+% ----------------------------------------------------------------------------
+% REPLACE: "the multiplier is approximately 7.33"
+% WITH:
+the multiplier is 7.335
+% (The saved gain totals give exactly 5341.22 / 728.18 = 7.335.)
+
+
+% ----------------------------------------------------------------------------
+% A9. Section 4.5 -- historical reproduction and verification
+% ----------------------------------------------------------------------------
+% The claim that the historical case "reproduced the earlier results within
+% their reported precision" could not be traced to a specific earlier record.
+% EITHER cite the record it reproduces, OR replace the sentence with:
+These values provide continuity with the configuration used in earlier
+versions of the analysis; they are not used in the staged comparisons.
+
+% REPLACE the test-count sentence with (counts after the input-handling fixes):
+The test suite recorded 261 passed and 17 skipped checks, including 12
+regression checks for input handling. The skipped checks compare against
+historical development branches, are not executable from the archived
+release, and are not counted as verification evidence. A fresh annual run of
+all twelve main cases reproduced the archived hourly conditioning loads with a
+maximum difference of 0~W.
+
+
+% ----------------------------------------------------------------------------
+% A10. Appendix A3 -- explicit coldest month (true after the code fix)
+% ----------------------------------------------------------------------------
+% No wording change is needed once the engine fix is applied; the explicit
+% month is now read from building_parameters.climate_parameters.coldest_month.
+% If you publish WITHOUT the code fix, replace "unless a valid explicit month
+% is supplied" with "unless building_parameters.coldest_month is supplied".
+
+
+% ============================================================================
+% GROUP B -- strengthens the paper
+% ============================================================================
+
+% ----------------------------------------------------------------------------
+% B1. Discussion -- new paragraph on the remaining heating discrepancy
+%     (insert after the paragraph on Stage 1, before the Stage 2 paragraph)
+% ----------------------------------------------------------------------------
+The remaining heating underprediction can be located more precisely.
+Table~\ref{tab:winter-balance} compares the energy-balance terms of the repaired
+configuration with fixed methods over the 430 June--August hours in which either
+engine supplied heating. Both engines maintained the same mean operative
+temperature (17.51 and 17.49\,\textdegree C), and their exterior-wall and
+outdoor-air terms agreed within about 1~kWh. The difference arose at the shared
+boundaries: pyBuildingEnergy received 19.6~kWh more heat from the five
+neighbouring spaces, which accounts for the 16.1~kWh winter heating shortfall,
+partly offset by window exchange. The shortfall was distributed across all
+heated hours rather than concentrated at the start of each heating period. The
+comparison identifies where the engines diverge but not the mechanism; the
+treatment of interior surface exchange, which differs between the engines
+(Appendix~D3), is the most direct candidate for a controlled test. The
+residual therefore lies in the same shared boundaries that dominate the
+apartment's conductance and carry the assumed 20\,\textdegree C neighbouring
+temperature, rather than in the glazing and exterior-convection mechanisms
+evaluated in Stage~2.
+
+\begin{table}[htbp]
+\centering
+\caption{Energy-balance terms during winter heated hours (June--August, 430~h),
+repaired configuration with fixed methods. Energy in kWh; gains positive.}
+\label{tab:winter-balance}
+\begin{tabular}{lrrr}
+\toprule
+Term & pyBuildingEnergy & EnergyPlus & Difference \\
+\midrule
+Heating supplied                     &  78.1 &  94.2 & $+16.1$ \\
+Heat gained from neighbouring spaces & 160.6 & 141.0 & $-19.6$ \\
+Exterior wall                        & $-53.3$ & $-54.2$ & $-0.9$ \\
+Outdoor air (loss)                   & 190.8 & 189.6 & $-1.3$ \\
+Window, net                          & $-39.0$ & $-32.2$ & $+6.8$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+% Difference = EnergyPlus minus pyBuildingEnergy.
+
+
+% ----------------------------------------------------------------------------
+% B2. Section 3.6.1 -- implied air-change rates and the ventilation share
+% ----------------------------------------------------------------------------
+% ADD after "...and 14 provides an additional sensitivity case.":
+Applied to the 13.5~m\textsuperscript{2} outdoor-exposed envelope and 54~m\textsuperscript{3}
+volume, these values correspond to $n_{50}$ = 1.00, 2.75 and 3.50~h$^{-1}$,
+well below the whole-dwelling averages reported in the Australian surveys.
+The continuous designed ventilation also dominates outdoor-air exchange: its
+conductance of 48.4~W/K compares with mean infiltration conductances of 0.76,
+2.09 and 2.66~W/K, so infiltration contributes 1.5--5.2\% of outdoor-air
+conductance in the tested scenarios.
+
+% And in Section 4.3, REPLACE "These effects are conditional on the
+% apartment's small outdoor-exposed envelope and continuous designed
+% ventilation of 0.040 m3/s." WITH:
+These effects are conditional on the apartment's small outdoor-exposed
+envelope and continuous designed ventilation of 0.040~m\textsuperscript{3}/s,
+under which infiltration provides at most 5.2\% of outdoor-air conductance.
+
+
+% ----------------------------------------------------------------------------
+% B3. Section 4.3 -- airflow timing isolated (pyBuildingEnergy side)
+% ----------------------------------------------------------------------------
+% REPLACE the two sentences beginning "However, this experiment changes both
+% mean airflow and its hourly distribution..." WITH:
+An additional pyBuildingEnergy run used constant airflow scaled to the weather
+multiplier's annual mean (0.853), so that mean airflow matched the
+weather-dependent case. Weather-dependent airflow then increased heating by
+2.79~kWh (120.73 against 117.94~kWh) and cooling by 0.32~kWh, isolating the
+effect of timing in this engine. A matched EnergyPlus reference was not run.
+% NOTE: if you add this sentence, add the run to Table 12 (Appendix C4) as
+% "Mean-matched constant flow, q50 = 9.387 (11 x 0.853), D, C, Both, --" and
+% keep the run files. For a matched EnergyPlus figure, one more reference is
+% needed (infiltration design flow x 0.853, constant schedule).
+
+
+% ----------------------------------------------------------------------------
+% B4. Table 6 -- add hourly RMSE, and note zero cooling
+% ----------------------------------------------------------------------------
+% Add a final column "RMSE (W)" with values:
+%   Stage 3 reference                15.02
+%   Higher leakage only              15.76
+%   Material-derived construction    19.39
+%   Combined input scenario          20.29
+% ADD to the paragraph after Table 6:
+Hourly agreement also deteriorated with material-derived construction:
+total-load RMSE increased from 15.02 to 19.39~W, and to 20.29~W for the
+combined scenario. Neither engine predicted any cooling demand in these
+configurations, so their total bias equals the heating bias.
+
+
+% ----------------------------------------------------------------------------
+% B5. Section 4.2 -- justification for retaining both Stage 2 methods
+% ----------------------------------------------------------------------------
+% REPLACE "Both methods were retained for Stage 3 as a consistent tested
+% configuration, rather than as a configuration that minimised every error
+% measure." WITH:
+Both methods were retained for Stage~3 on physical grounds rather than
+because they minimised every error measure: transmission through glazing
+depends on incidence angle, and the EnergyPlus reference itself uses
+wind-dependent exterior convection.
+
+
+% ----------------------------------------------------------------------------
+% B6. Glazing description -- choose ONE option (Section 3.5.1 or Appendix B1)
+% ----------------------------------------------------------------------------
+% A U-value of 5.4 W/(m2 K) normally indicates single glazing, whereas the
+% angular correction uses the two-pane curve.
+% OPTION 1 (keep runs; justify):
+The two-pane coefficients are an assumed optical response; the window U-value
+of 5.4~W/(m\textsuperscript{2}\,K) is more typical of single glazing, so the
+angular correction should be regarded as an assumption rather than a property
+of the installed windows.
+% OPTION 2 (stronger): add a one-pane sensitivity run. The code already
+% provides one-pane coefficients (glazing_panes = 1). One ISO run, no new
+% EnergyPlus reference needed.
+
+
+% ============================================================================
+% GROUP C -- small corrections
+% ============================================================================
+
+% C1. Section 3.2: REPLACE "Wind direction, shelter from nearby buildings, and
+%     facade pressure coefficients are kept as is."
+%     WITH:
+Wind direction, shelter from nearby buildings and facade pressure
+coefficients are not modelled.
+
+% C2. Section 3.3 vs Appendix A5 -- make the short-wave wording agree.
+%     REPLACE in Section 3.3 "It also includes absorbed external short-wave
+%     radiation." WITH:
+It is net of absorbed external short-wave radiation, which is reported
+separately.
+
+% C3. Leakage values and the archived age lookup -- ADD to Appendix C1:
+The archived lookup assigns $q_{50}$ = 11 to dwellings built from 2006 and
+14 to those built from 1991 to 2005; the selected scenario values coincide
+with these entries but are used here as explicit illustrative inputs.
+
+% C4. References [15] and [16] are the same CSIRO article. Delete one and
+%     update the citations.
+
+% C5. Lower-case "Solar transmittance" mid-sentence (Sections 2.1, 4.2, 5, 6).
+
+% C6. Section 3.1: "11.88 m2. of opaque wall and two windows with a combined
+%     area of 1.62 m2 The remaining" -> move the full stop to after "1.62 m2".

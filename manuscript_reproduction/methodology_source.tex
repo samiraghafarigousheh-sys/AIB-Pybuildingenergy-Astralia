@@ -1,0 +1,725 @@
+% ============================================================
+%  Modification and Validation of pyBuildingEnergy for
+%  Australian Residential Building Energy Simulation
+%  Compile: pdflatex → pdflatex → bibtex → pdflatex → pdflatex
+% ============================================================
+\documentclass[12pt, a4paper]{article}
+
+% ---- Packages -----------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm,
+            left=3.0cm, right=2.5cm]{geometry}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{natbib}
+% Simple DOI display (no external package needed)
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\texttt{doi:#1}}}
+
+% ---- Section title formatting (journal style) ---------------
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection.}{0.5em}{}
+
+% ---- Spacing -----------------------------------------------
+\setstretch{1.15}
+\setlength{\parskip}{0.5em}
+
+% ---- Code listing style ------------------------------------
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.5,0,0.7}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.97}
+\definecolor{framecolour}{rgb}{0.8,0.8,0.8}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{blue!80!black}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    frame=single,
+    rulecolor=\color{framecolour},
+    xleftmargin=12pt,
+    framexleftmargin=12pt
+}
+\lstset{style=pythonstyle}
+
+% ---- Page style --------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small\itshape pyBuildingEnergy Modifications for Australian Simulation}
+\lhead{\small\itshape AIB Research Team}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ---- Hyperref setup ----------------------------------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=green!50!black,
+    urlcolor=blue!60!black
+}
+
+% ---- Title --------------------------------------------------
+\title{
+    \vspace{-0.5cm}
+    \LARGE\textbf{Revising pyBuildingEnergy
+    Simulation Engine- A methodology for Australian Residential Buildings}
+    \vspace{0.3cm}
+}
+
+\author{
+    AIB Research Team\\[0.3em]
+%    \small\textit{Repository: \texttt{samiraghafarigousheh-sys/PyBuildingEnergy\_AIBteam\_AU}}
+}
+
+\date{\today}
+
+% =============================================================
+\begin{document}
+% =============================================================
+
+\maketitle
+\thispagestyle{fancy}
+
+% ---- Abstract -----------------------------------------------
+\begin{abstract}
+\noindent
+This paper documents the modifications made to pybuildingenergy as the baseline for measuring energy consumption based on the standard.... to adapt the engine for Australian residential and localized weather conditions contexts while comparing the measurement with the ISo 52016 and the more advanced energy calculation engines such as energy plus .
+
+
+
+
+
+\end{abstract}
+
+\vspace{0.3cm}
+\noindent\textbf{Keywords:} ISO 52016-1, building energy simulation, pyBuildingEnergy,
+EnergyPlus validation, Australian residential buildings
+
+\tableofcontents
+\newpage
+
+% =============================================================
+\section{Introduction}
+\label{sec:introduction}
+% =============================================================
+ 
+Accurate prediction of building energy consumption is central to the design of
+low-carbon residential stock and to the assessment of energy efficiency policy.
+At the national level, the Australian National Construction Code (NCC) mandates
+minimum performance levels for new dwellings, and assessors increasingly require
+dynamic simulation evidence that these levels are met under local climatic conditions.
+At the project level, energy modelling informs decisions about building fabric,
+glazing, mechanical ventilation, and equipment sizing that collectively determine
+whether a building is comfortable and energy-efficient throughout its life.
+ 
+Apart from data-driven approach,Two broad classes of tools address these requirements.
+Detailed dynamic simulation engines such as EnergyPlus~\cite{energyplus} and
+TRNSYS~\cite{trnsys} solve the full heat and mass balance of a building at
+sub-hourly resolution, accounting for variable surface heat transfer coefficients,
+hourly window optical properties, and multi-zone airflow.
+Their fidelity is high, but they require extensive parameterisation, specialist
+expertise, and significant computational time.
+Simplified hourly methods, codified in international standards, offer a middle
+ground: they are computationally lightweight and can be run on commodity hardware
+with modest user effort, making them suitable for compliance screening, early design
+exploration, and large-scale stock analyses.
+ 
+The international Organization for Standardization (ISO)~52016-1:2018 standard~\cite{iso52016} is the current European and
+internationally adopted simplified hourly method, replacing the earlier EN~ISO~13790
+5R1C single-capacitance model with a multi-node resistance--capacitance network that
+more accurately represents the thermal mass and dynamic behaviour of building
+envelopes.
+The open-source Python library \texttt{pyBuildingEnergy}~\cite{eurac2024},
+developed by EURAC Research, provides an executable implementation of this standard
+and is the simulation backbone adopted in the present study.
+ 
+The \texttt{pyBuildingEnergy} library was designed primarily for
+European building stock and regulatory contexts.  Despite its advantages, there exists some limitations in the context of Australian
+residential apartments. \hl{As per \textit{author et al.,} method-level simplifications in ISO~52016-1 can produce systematic cooling inaccuracy (citation). Additionally, it is found that the library 
+lacks Australia -specific features such as ....Also, exsiting implementation defects in the engine cause
+systematic errors regardless of the standard's method-level accuracy.}
+ 
+The objective of this paper is therefore to develop a more sutable and reproducible methodology to address these limitations.
+The methodology is anchored to a specific case study building in Melbourne, Australia — and validated against EnergyPlus as the reference benchmark.
+
+The result is a modified implementation, released as \texttt{AIB}, whose
+departures from the upstream release are individually documented, traceable to
+the provision of the Standard or the measurement from which they derive, and
+subject to an energy-balance closure criterion applied uniformly across the
+correction sequence.
+ 
+\section{Literature Review}
+\subsection{From ISO~13790 to ISO~52016-1}
+ISO~52016-1 was developed under the European Committee for Standardization (CEN) Mandate M/480, in support of the recast Energy
+Performance of Buildings Directive (2010/31/EU), as the successor to the withdrawn
+EN~ISO~13790 simple hourly method.
+While ISO~13790 represents building as a single 5-resistance/1-capacitance (5R1C)
+network, ISO~52016-1 discretises every building element into a multi-node
+resistance--capacitance chain and resolves the zone air-node energy balance at every
+hourly timestep.
+This gives a more detailed representation of envelope thermal mass and dynamic
+behaviour than its predecessor, while remaining far less data-intensive than a
+fully dynamic simulation engine.
+ 
+
+As a reference, a growing body of literature uses these fully dynamic simulation engines to validate and find the specific source for the discrepancy between the results.
+For example, \cite{zakula2021} compared the Standard against TRNSYS in 147,456 cases
+that span eight climate zones developed by the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE), and identified use of constant,
+angle-independent window optical properties as the leading cause of cooling
+inaccuracy, specifically for ASHRAE zone 6, cold Nordic climate.
+Recomputing the window's total solar energy transmittance $g_{\text{win}}$ hourly
+as a function of solar angle of incidence raised the share of acceptable
+cooling cases to 35\% for Zone~6 and to 75--100\% for warmer moderate climates.
+ 
+\cite{ballarini2020} and \cite{ballarini2019} reached a complementary conclusion
+using EnergyPlus as the reference, attributing residual cooling error to the
+Standard's use of constant convective and radiative surface heat transfer
+coefficients inherited from ISO~13789, and to differences in the modelling of
+long-wave radiative exchange with the sky.
+\cite{deluca2022} isolated the effect of each correction introduced by the Italian
+National Annex to ISO~52016-1 and found that solar-angle- and time-dependent
+correction to the window's solar energy transmittance produced by far the largest
+change in predicted heating and cooling needs, corroborating \cite{zakula2021}'s
+finding.
+\cite{summa2022} compared the Standard's own conduction discretisation (Annex~B)
+against the Italian Annex~A alternative and likewise found lower error for heating
+than for cooling, with RMSE degrading as glazing solar transmittance is reduced.
+
+\cite{campana2019} benchmarked ISO~52016-1 against BESTEST/ASHRAE~140 reference
+cases and found that for heavyweight constructions, the Standard's five-class
+thermal-mass scheme produced deviations from the BESTEST range exceeding 90\%,
+attributing this to the use of discrete capacitance classes rather than
+construction-specific areal heat capacities.
+
+Across all these studies, three recurring method-level causes of error emerge:
+(1)~constant, hourly-invariant surface heat transfer coefficients; (2)~constant,
+angle-independent window optical properties; and (3)~a classified rather than
+physically calculated representation of envelope thermal mass.
+ 
+ 
+Overall, the existing studies characterise the accuracy of the Standard on the assumption
+of a correct implementation.
+However, limited attempts have been made to address the additional layer of defects that can be introduced when the Standard is translated into an open-source tool.
+
+Modifying the regional features, which is the main objective of this paper, can only be applied and assessed meaningfully after the underlying calculation has been checked. 
+A difference between two programs may arise from an implementation error, a simplified physical method or inconsistent inputs. Each cause requires a different response. For this reason, the study examines individual heat-transfer terms as well as total energy demand.
+
+The investigation proceeds in three stages. First, we identify and repair implementation errors and inconsistent interpretations of the inputs. Second, we test two modifications motivated by the ISO 52016 literature: angular solar transmission and wind-dependent exterior convection. These changes are intended to improve the physical representation and prepare the model for Australian applications, but their accuracy must be demonstrated rather than assumed. Third, we examine Australian specific construct and weather features including leakage assumptions, Melbourne wind exposure and alternative construction-layer descriptions.
+
+% =============================================================
+\section{Methodology}
+\label{sec:methodology}
+\label{sec:case_study}
+% =============================================================
+\subsection{Case study building}
+\label{sec:building}
+
+The case study is Apartment 305 at 50 Barry Street, Carlton, Melbourne, recorded as constructed in 2006. It is a 20 m² studio with a height of 2.7 m and an air volume of 54 m³. Its west-facing external facade contains 11.88 m² of opaque wall and two windows with a combined area of 1.62 m². The remaining walls, floor and ceiling adjoin other parts of the building. Figures~\ref{fig 1} and~\ref{fig 2} show the case documentation and model geometry, and Table~\ref{tab:building} lists the principal inputs.
+
+
+ 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Figures/305, 50 Barry Street.png}
+    \caption{Case-study photographs, plan and thermal-boundary.}
+    \label{fig 1}
+\end{figure}
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Figures/F13_case_geometry.png}
+    \caption{case study geometry schematic reproduced from the supplied case documentation.}
+    \label{fig 2}
+\end{figure}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Principal inputs for the diagnostic apartment}
+\label{tab:building}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+Location & latitude $-37.800$, longitude $144.968$ \\
+Net floor area & 20\,m$^2$ \\
+Ceiling height & 2.7\,m \\
+Exterior wall $U$-value & 1.00\,W/(m$^2$\,K), brick veneer, R1.0 \\
+Interior partition $U$-value & 2.50\,W/(m$^2$\,K) \\
+Interior slab $U$-value & 1.80\,W/(m$^2$\,K) \\
+Window $U$-value / $g_{gl,n}$ & 5.40\,W/(m$^2$\,K) / 0.65 \\
+Window orientation & west (270\textdegree), 1.62\,m$^2$ \\
+External solar absorptance & 0.75 \\
+Adjacent zones & 5, conditioned at 20\,\textdegree C \\
+Exposed perimeter & 0\,m \\
+Setpoints & 18\,/\,26\,\textdegree C (setback 15\,/\,28) \\
+Ventilation & 2.0\,l/(s\,m$^2$) \\
+HVAC & ideal loads (energy need, not system) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Heat transfer to neighbouring spaces is particularly important in this apartment. The five shared opaque boundaries total 75.1 m², or about 84.8\% of the envelope area. 
+With the diagnostic U-values, these boundaries account for about 88.6\% of the sum of U-value multiplied by area. 
+
+The primary diagnostic model also assigns zero heat capacity to opaque elements. This deliberately removes heat storage so that implementation and boundary-condition effects can be examined more directly.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{Weather data}
+\label{sec:weather}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Both engines use the same hourly weather record from Melbourne Essendon Fields. We selected this file after checking the initially considered Melbourne Regional Office record. The checks covered the number of records, missing-value codes and monthly weather patterns. In the archived Regional Office file, 2941 of 2952 hours across January, March, July and September have zero wind speed. These nearly calm monthly blocks raised a data-quality concern even though the annual file was complete.
+
+The Essendon file has an annual mean station wind speed of 4.84 m/s and does not show the same near-zero monthly blocks. This matters because a wind-dependent calculation uses those values directly to determine heat exchange.
+
+For exterior convection, we adjust station wind to a facade height of 6.75 m using a profile that accounts for the terrain at the station and at the building. The adopted suburban site assumptions give a multiplier of 0.6574 and an annual mean local wind speed of about 3.18 m/s. Wind direction, shelter from nearby buildings and facade pressure coefficients are not resolved.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Simulation engines and diagnosing discrepancies}
+\label{sec:engines}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Two engines are used, driven from a single shared building definition:
+ 
+\begin{enumerate}
+\item \textbf{ISO 52016-1} as implemented in \texttt{pyBuildingEnergy}, in two
+  configurations --- the unmodified release, which serves as the baseline, and
+  the modified engine developed gradually in 3 stages mentioned in the methodology.
+\item \textbf{EnergyPlus 24.1.0}, driven by a generated Input Data File and
+  adopted as the high-fidelity reference benchmark.
+\end{enumerate}
+
+Both engines are run with ideal loads, indicating that the reported quantity is the
+building’s pure energy need.
+
+Before comparing results, we checked that both models represented the same apartment and operating conditions. The checks covered geometry, window and wall areas, orientation, weather, schedules and neighbouring temperatures. 
+
+We then traced the main heat-transfer calculations from the inputs, through the code, to the reported outputs. For airflow, this involved checking whether ventilation and infiltration were both included, whether incoming air was assigned the correct temperature, and which surface areas were used to estimate outdoor leakage. Similar checks examined internal gains, ground contact and neighbouring spaces which are the basis of implementation repaire in the next section.
+
+To support this review, we reconstructed a heat balance from its individual terms. The balance accounts for heat entering or leaving the zone air and the represented fabric, together with changes in stored energy.
+
+The residual of the heat balance was defined as
+\begin{equation}
+  r = \Phi_{\mathrm{HVAC}} + \Phi_{\mathrm{int}} + \Phi_{\mathrm{sol}}
+      + \Phi_{a} + \Phi_{\mathrm{bnd}} - \frac{\Delta U}{\Delta t},
+  \label{eq:residual}
+\end{equation}
+where $\Phi_{\mathrm{HVAC}}$ is the sensible heating or cooling power,
+$\Phi_{\mathrm{int}}$ and $\Phi_{\mathrm{sol}}$ are the internal and solar
+gains, $\Phi_{a}$ is the heat carried by incoming and outgoing air, and
+$\Phi_{\mathrm{bnd}}$ is the heat transfer across external, adjacent and
+ground boundaries. The term $\Delta U/\Delta t$ represents the change in
+stored heat per unit time. The residual $r$ is the difference left after
+these terms are combined. A residual close to zero shows that the reported
+heat flows balance. However, a calculation can balance while using an
+incorrect area or source temperature. We therefore checked those inputs and
+equations separately rather than relying on balance closure alone.
+
+Finally, controlled runs examined selected mechanisms, such as infiltration,
+while keeping the remaining settings unchanged. Disabling and enabling
+infiltration, for example, allowed us to check its contribution to airflow
+conductance and energy demand. Earlier sweeps of ventilation rate and fixed
+airflow conductance were used to explore sensitivity. A change in demand
+during such a sweep does not by itself identify a software error. Our
+diagnosis therefore combines inspection of the calculation with controlled
+output comparisons, rather than adjusting inputs solely to reproduce the
+EnergyPlus annual total. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stage 1:engine problems}
+\label{sec:engine problems}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+The first stage examines whether the original pyBuildingEnergy implementation uses the building inputs as intended. This is necessary because a difference in annual demand may arise from incorrect input handling or missing model capabilities, as well as from differences between simulation methods. 
+
+The checks compare the specified inputs with the quantities used during simulation. They address internal heat gains, neighbouring-space conditions, ground contact, exposed-envelope area, ventilation and infiltration. Hourly heat flows and stored temperature states are also examined to identify inconsistencies in energy accounting.
+
+Verified corrections are then retained in a corrected version of pyBuildingEnergy. Appendix A documents each change and distinguishes implementation repairs from added model capabilities.
+
+The original and corrected versions are evaluated against the same primary EnergyPlus reference. This comparison establishes the combined effect of correcting the implementation and supporting the intended building specification.
+The corrected version provides the starting point for the next two stages. Therefore, a subsequent variant with the solar and convection modifications disabled still contains the implementation corrections.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stage 2: general ISO limitations from literature}
+\label{sec:general ISO limitations from literature}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+The literature reviewed in Section~2 identifies three recurring method-level
+simplifications that can contribute to differences between ISO~52016-1 and
+detailed dynamic simulation: the use of fixed surface heat-transfer
+coefficients, angle-independent glazing properties, and a simplified
+classification of envelope thermal mass.
+
+In the present study, two of these limitations are evaluated directly:
+the treatment of solar transmittance through glazing and the use of fixed
+external convective heat-transfer coefficients. Both affect the interaction
+between the building envelope and hourly outdoor conditions and can therefore
+be examined directly against the same EnergyPlus reference model.
+
+The third limitation identified in the literature concerns the simplified
+classification of envelope thermal mass, particularly for heavyweight
+constructions. This modification is not adopted directly in the present study.
+The target Australian residential stock is predominantly lightweight, while
+common brick-veneer construction places much of its masonry mass outside the
+insulated part of the envelope, reducing its contribution to indoor thermal
+storage. Refinement of the heavyweight thermal-mass classification was therefore
+considered less relevant to the present application.
+
+Construction representation is nevertheless important when adapting the model
+to Australian residential buildings. Rather than modifying the
+ISO~52016-1 thermal-mass formulation itself, this issue is addressed separately
+in Stage~3 through Australian-specific construction-layer descriptions. The two
+approaches therefore address different aspects of the problem: the
+literature-based thermal-mass modification concerns how thermal capacity is
+represented mathematically within the ISO calculation, whereas the Stage~3
+refinement concerns the physical construction supplied to that calculation.
+
+\subsubsection{Angular solar transmittance}
+
+The first modification concerns solar radiation transmitted through glazing.
+In the fixed treatment, the fraction of incident solar radiation transmitted
+through a window is represented by a constant multiplier. However, glazing
+transmittance varies with the angle at which solar radiation reaches the
+surface.
+
+The modified calculation therefore evaluates the angular dependence of direct
+solar radiation at each hourly timestep. Direct radiation is corrected according
+to the solar incidence angle, while diffuse and ground-reflected components are
+treated separately using an appropriate diffuse-radiation factor. This replaces
+the fixed solar multiplier used in the comparison model while retaining the
+same glazing properties and window geometry.
+
+The purpose of this modification is not to assume that an angle-dependent
+treatment will necessarily improve agreement with EnergyPlus, but to isolate
+the effect of the approximation identified in previous comparisons of
+ISO~52016-1 with detailed simulation methods
+\cite{zakula2021,deluca2022}.
+
+This issue is particularly relevant to the present application because solar
+gain through glazing can contribute substantially to cooling demand. The
+case-study apartment has a west-facing glazed facade, for which the incidence
+angle changes considerably over the day. An hourly treatment therefore allows
+the model to respond to the actual solar geometry rather than applying the same
+transmission factor throughout the year.
+
+\subsubsection{Wind-dependent external convection}
+
+The second modification concerns convective heat exchange between
+air-exposed surfaces and the outdoor environment. The fixed formulation uses
+a constant external convective heat-transfer coefficient. In reality, this
+exchange varies with wind speed, so a constant coefficient cannot represent
+hour-to-hour changes in the external surface boundary condition.
+
+The modified calculation therefore evaluates the external convective
+coefficient as a function of hourly local wind speed for exposed walls and
+windows. The wind speed measured in the weather file is first adjusted from
+the meteorological station conditions to the height and terrain of the
+case-study facade, as described in Section~\ref{sec:weather}. The resulting
+local wind speed is then used in the hourly external convection calculation.
+
+The modification is applied only to the external surface boundary condition.
+The standard coefficient used when deriving the fixed construction resistance
+from the rated $U$-value is retained. This distinction is necessary because
+construction resistance is a material property and should not change with
+weather, whereas convective exchange at the exterior surface does vary with
+wind.
+
+Only surfaces exposed to outdoor air are assigned the wind-dependent
+coefficient. Adjacent-zone and ground-coupled surfaces retain their existing
+boundary treatments.
+
+This modification is relevant to the Australian application because wind
+conditions can vary substantially over time and location. In Melbourne, the
+difference between station wind speed and the wind actually experienced at the
+building facade is also important. For this reason, the effect of the
+wind-dependent formulation is evaluated using the terrain- and height-adjusted
+local wind rather than applying the meteorological station value directly.
+
+\subsubsection{Evaluation of the two modifications}
+
+To separate the effects of solar transmittance and external convection,
+four \texttt{pyBuildingEnergy} variants are evaluated
+(Table~\ref{tab:variants}). All variants retain the implementation corrections
+identified in Stage~1 and use the same building geometry, schedules, weather
+data, ventilation assumptions and boundary conditions. Each variant is compared
+against the same unchanged EnergyPlus reference.
+
+\begin{table}[htbp]
+\centering
+\caption{Variants used to evaluate the two literature-based physical modelling
+modifications.}
+\label{tab:variants}
+\begin{tabular}{p{3.6cm}p{4.6cm}p{4.6cm}}
+\toprule
+\textbf{Variant} &
+\textbf{Solar transmittance treatment} &
+\textbf{External convection treatment} \\
+\midrule
+Corrected fixed methods &
+Fixed solar multiplier &
+Fixed coefficient \\
+
+Angular transmittance only &
+Dependent on solar incidence angle &
+Fixed coefficient \\
+
+Dynamic convection only &
+Fixed solar multiplier &
+Dependent on local wind speed \\
+
+Both modifications &
+Dependent on solar incidence angle &
+Dependent on local wind speed \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The corrected fixed-method variant provides the reference state for this stage.
+The two single-modification variants show the independent effect of each
+change, while the final variant shows their combined effect. This arrangement
+allows the contribution of each modification to heating and cooling energy
+need to be identified without assuming in advance that either modification
+will improve agreement with EnergyPlus.
+
+The results of these comparisons are reported separately in the Results
+section, including the effect of each modification when applied alone and
+their combined effect. Appendix~B provides the governing equations and
+implementation details, including the angular glazing formulation,
+beam--diffuse separation, external convective correlation, and conversion from
+meteorological station wind speed to local facade wind speed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stage 3: Australian-specific refinements}
+\label{sec:AU_refinements}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The first two stages address the reliability of the calculation itself:
+Stage~1 verifies and corrects the implementation, while Stage~2 evaluates
+selected method-level simplifications identified in the literature. The third
+stage addresses a different question: whether the inputs and assumptions used
+by the corrected model are representative of Australian residential buildings.
+
+Two regional refinements are considered. The first concerns envelope air
+leakage, for which the default values inherited from a European-oriented
+building stock may not represent Australian dwellings. The second concerns
+the physical description of opaque constructions, for which representative
+Australian material-layer assemblies are introduced instead of relying only
+on generic construction descriptions.
+
+These refinements are not treated as corrections to ISO~52016-1 itself.
+Rather, they adapt the information supplied to the calculation to the
+Australian context. Their effects are evaluated after the Stage~1 corrections
+have been retained and the Stage~2 physical modifications have been established.
+
+% ---------------------------------------------------
+\subsubsection{Australian envelope-leakage parameterisation}
+% ---------------------------------------------------
+
+The first refinement concerns the permeability of the building envelope.
+Air leakage is strongly influenced by construction practice, building age
+and airtightness requirements. These characteristics vary between national
+building stocks, so default leakage values developed for one context cannot
+necessarily be transferred directly to another.
+
+This issue is particularly important for Australian residential modelling
+because measured airtightness is often unavailable for an individual dwelling.
+In such cases, the simulation depends on the default permeability assigned by
+the model. Australian measurements show that residential airtightness varies
+substantially with construction period, and that values representative of
+Australian dwellings can differ considerably from the defaults originally
+used by the engine.
+
+The implementation corrections made in Stage~1 establish the infiltration
+path itself. In particular, infiltration is included in addition to
+purpose-provided ventilation, the entering air is assigned the correct outdoor
+temperature, and leakage is calculated only across the air-exposed envelope.
+These corrections are retained unchanged in Stage~3. The Australian refinement
+therefore does not alter how infiltration is calculated; it changes the
+permeability value supplied to that calculation.
+
+Where a measured blower-door value is available, the measured permeability is
+used directly. Where no measurement is available, an age-dependent default is
+assigned using Australian residential evidence. The adopted default values are
+shown in Table~\ref{tab:AU_leakage}.
+
+\begin{table}[htbp]
+\centering
+\caption{Australian envelope-permeability defaults used where a measured value
+is unavailable. Values are expressed at 50~Pa.}
+\label{tab:AU_leakage}
+\begin{tabular}{lc}
+\toprule
+\textbf{Construction period} &
+\textbf{$q_{50}$ [m$^3$/(h\,m$^2$)]} \\
+\midrule
+Before 1900    & 30.0 \\
+1901--1920     & 28.0 \\
+1921--1945     & 26.0 \\
+1946--1960     & 24.0 \\
+1961--1975     & 20.0 \\
+1976--1990     & 16.0 \\
+1991--2005     & 14.0 \\
+2006--present  & 11.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the case-study building, which was completed in 2006, the adopted value is
+treated cautiously because the building lies at the boundary between two
+construction periods and no measured airtightness result is available.
+The influence of this assumption is therefore examined through sensitivity
+testing rather than interpreting a single default value as a measured property
+of the dwelling.
+
+The infiltration rate continues to respond to the hourly weather conditions
+through the existing infiltration model. The Stage~3 change is therefore
+limited to the Australian-specific characterisation of envelope permeability
+and does not introduce an independent wind model. Wind-dependent exterior
+convection remains the separate Stage~2 mechanism.
+
+% ---------------------------------------------------
+\subsubsection{Australian construction-layer representation}
+% ---------------------------------------------------
+
+The second refinement concerns the representation of opaque constructions.
+As discussed in Stage~2, previous studies have identified limitations in the
+simplified treatment of thermal mass within ISO~52016-1, particularly for
+heavyweight constructions. That method-level modification is not adopted
+directly in this study because it is less relevant to the predominantly
+lightweight residential construction targeted here.
+
+The Australian refinement addresses a different issue. Instead of changing
+the ISO~52016-1 procedure used to calculate heat transfer and distribute
+thermal capacity across the calculation nodes, the physical construction
+supplied to that procedure is described using material layers representative
+of Australian residential practice.
+
+This distinction separates two levels of modelling. The literature-based
+thermal-mass refinement changes \emph{how} a given construction is represented
+mathematically within the simplified method. The present refinement changes
+\emph{which construction} is supplied to the model. The ISO~52016-1 calculation
+procedure itself is retained.
+
+For the initial diagnostic comparison in Stages~1 and~2, the opaque elements
+are intentionally assigned zero heat capacity. This removes heat storage and
+makes implementation errors and boundary-condition effects easier to identify.
+The construction-layer analysis therefore uses a subsequent configuration in
+which material-specific thermal properties are restored. This prevents the
+effect of construction storage from being mixed with the implementation
+diagnosis performed in the earlier stages.
+
+For the Australian configuration, opaque elements are represented through
+their constituent material layers rather than only through a generic
+construction description. In the case-study external wall, for example, the
+brick-veneer assembly is represented according to its actual layer arrangement.
+This allows the location of resistance and thermal capacity within the
+construction to be represented more realistically while retaining the
+ISO~52016-1 calculation framework.
+
+The purpose of this refinement is not to reproduce the detailed construction
+model used by EnergyPlus node-for-node. Instead, it tests whether supplying
+the simplified model with a construction description that better reflects
+Australian residential practice changes its predicted heating and cooling
+energy need and its agreement with the reference model.
+
+% ---------------------------------------------------
+\subsubsection{Evaluation of the Australian-specific refinements}
+% ---------------------------------------------------
+
+The two Australian-specific refinements are evaluated after the preceding
+corrections have been established. A common corrected configuration is used
+as the reference state, after which the Australian leakage parameterisation
+and the Australian construction-layer representation are introduced in
+controlled comparisons.
+
+The refinements are examined separately before being combined. This allows a
+change caused by the assumed envelope permeability to be distinguished from a
+change caused by construction representation. The comparison therefore
+includes the configurations shown in Table~\ref{tab:AU_variants}.
+
+\begin{table}[htbp]
+\centering
+\caption{Configurations used to evaluate the Australian-specific refinements.}
+\label{tab:AU_variants}
+\begin{tabular}{p{4.0cm}p{4.3cm}p{4.3cm}}
+\toprule
+\textbf{Configuration} &
+\textbf{Envelope leakage} &
+\textbf{Construction representation} \\
+\midrule
+
+Corrected reference &
+Original/default parameterisation &
+Reference construction \\
+
+Australian leakage only &
+Australian age-dependent permeability &
+Reference construction \\
+
+Australian construction only &
+Original/default parameterisation &
+Australian layer-based construction \\
+
+Combined Australian model &
+Australian age-dependent permeability &
+Australian layer-based construction \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All other modelling assumptions are held unchanged within each controlled
+comparison. Heating need, cooling need and total energy need are then compared
+with the corresponding EnergyPlus reference. The individual comparisons show
+the influence of each regional refinement, while the combined configuration
+represents the final Australian-adapted version of the model.
+
+The detailed material properties, construction-layer definitions, permeability
+sources and infiltration equations are provided in Appendix~C. The Results
+section reports the effect of the leakage and construction refinements
+separately before presenting the performance of the combined Australian model.
+
+
+
+
+
+
+
+

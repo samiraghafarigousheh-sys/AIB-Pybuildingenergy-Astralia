@@ -1,0 +1,1175 @@
+{
+  "status": "passed",
+  "checked": 146,
+  "mismatched": 0,
+  "values": [
+    {
+      "section": "2.1 Case study",
+      "quantity": "exterior opaque wall area (m2)",
+      "recomputed": 11.879999999999999,
+      "manuscript": 11.88,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.1 Case study",
+      "quantity": "window area (m2)",
+      "recomputed": 1.62,
+      "manuscript": 1.62,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.1 Case study",
+      "quantity": "shared boundary area (m2)",
+      "recomputed": 75.1,
+      "manuscript": 75.1,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "2.1 Case study",
+      "quantity": "shared share of envelope area (%)",
+      "recomputed": 84.7629796839729,
+      "manuscript": 84.8,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "3.1 Results",
+      "quantity": "shared share of envelope conductance (%)",
+      "recomputed": 88.56401556730866,
+      "manuscript": 88.6,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "2.1 Case study",
+      "quantity": "air volume (m3)",
+      "recomputed": 54.0,
+      "manuscript": 54,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "2.2 Weather",
+      "quantity": "Regional Office zero-wind hours (Jan/Mar/Jul/Sep)",
+      "recomputed": 2941.0,
+      "manuscript": 2941,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "2.2 Weather",
+      "quantity": "Regional Office hours in Jan/Mar/Jul/Sep",
+      "recomputed": 2952.0,
+      "manuscript": 2952,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "2.2 Weather",
+      "quantity": "Essendon annual mean wind (m/s)",
+      "recomputed": 4.840331050228311,
+      "manuscript": 4.84,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.2 Weather",
+      "quantity": "facade height (m)",
+      "recomputed": 6.75,
+      "manuscript": 6.75,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.2 Weather",
+      "quantity": "local wind multiplier",
+      "recomputed": 0.6574055674303007,
+      "manuscript": 0.6574,
+      "decimals": 4,
+      "matches": true
+    },
+    {
+      "section": "2.2 Weather",
+      "quantity": "annual mean local wind (m/s)",
+      "recomputed": 3.182060580625846,
+      "manuscript": 3.18,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.4 Stage 1",
+      "quantity": "designed ventilation (h-1)",
+      "recomputed": 2.6666666666666665,
+      "manuscript": 2.67,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "designed ventilation conductance (W/K)",
+      "recomputed": 48.44896,
+      "manuscript": 48.4,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "n50 at q50=4 (h-1)",
+      "recomputed": 1.0,
+      "manuscript": 1.0,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "mean infiltration conductance q50=4 (W/K)",
+      "recomputed": 0.7603387733496589,
+      "manuscript": 0.76,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "n50 at q50=11 (h-1)",
+      "recomputed": 2.75,
+      "manuscript": 2.75,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "mean infiltration conductance q50=11 (W/K)",
+      "recomputed": 2.0909316267115585,
+      "manuscript": 2.09,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "n50 at q50=14 (h-1)",
+      "recomputed": 3.5,
+      "manuscript": 3.5,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "mean infiltration conductance q50=14 (W/K)",
+      "recomputed": 2.661185706723799,
+      "manuscript": 2.66,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "infiltration share of outdoor-air conductance, q50=4 (%)",
+      "recomputed": 1.5451119855449689,
+      "manuscript": 1.5,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "2.6 Stage 3",
+      "quantity": "infiltration share of outdoor-air conductance, q50=14 (%)",
+      "recomputed": 5.2067660342703865,
+      "manuscript": 5.2,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "3.3 Leakage",
+      "quantity": "annual mean weather multiplier",
+      "recomputed": 0.8533544033105024,
+      "manuscript": 0.853,
+      "decimals": 3,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "original ISO heating",
+      "recomputed": 1780.0851909453404,
+      "manuscript": 1780.09,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "original ISO cooling",
+      "recomputed": 628.6527218053913,
+      "manuscript": 628.65,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "original ISO total",
+      "recomputed": 2408.7379127507315,
+      "manuscript": 2408.74,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "original total bias (%)",
+      "recomputed": 1430.9840467124775,
+      "manuscript": 1430.98,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "original total RMSE (W)",
+      "recomputed": 483.2438248342452,
+      "manuscript": 483.24,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "without_infiltration ISO heating",
+      "recomputed": 108.39282111108729,
+      "manuscript": 108.39,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "without_infiltration ISO cooling",
+      "recomputed": 18.14563294660996,
+      "manuscript": 18.15,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "without_infiltration ISO total",
+      "recomputed": 126.53845405769722,
+      "manuscript": 126.54,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "without_infiltration total bias (%)",
+      "recomputed": -19.57267188244643,
+      "manuscript": -19.57,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "without_infiltration total RMSE (W)",
+      "recomputed": 16.986996020174296,
+      "manuscript": 16.99,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "repaired ISO heating",
+      "recomputed": 113.22185794817052,
+      "manuscript": 113.22,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "repaired ISO cooling",
+      "recomputed": 18.542730739514145,
+      "manuscript": 18.54,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "repaired ISO total",
+      "recomputed": 131.76458868768466,
+      "manuscript": 131.76,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "repaired total bias (%)",
+      "recomputed": -16.250961910544483,
+      "manuscript": -16.25,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "repaired total RMSE (W)",
+      "recomputed": 15.594333134868773,
+      "manuscript": 15.59,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "repaired ISO heating",
+      "recomputed": 113.22185794817052,
+      "manuscript": 113.22,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "repaired ISO cooling",
+      "recomputed": 18.542730739514145,
+      "manuscript": 18.54,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "repaired ISO total",
+      "recomputed": 131.76458868768466,
+      "manuscript": 131.76,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "repaired total bias (%)",
+      "recomputed": -16.250961910544483,
+      "manuscript": -16.25,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "repaired total RMSE (W)",
+      "recomputed": 15.594333134868773,
+      "manuscript": 15.59,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "angular_only ISO heating",
+      "recomputed": 113.26863267898084,
+      "manuscript": 113.27,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "angular_only ISO cooling",
+      "recomputed": 16.907790375203902,
+      "manuscript": 16.91,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "angular_only ISO total",
+      "recomputed": 130.17642305418474,
+      "manuscript": 130.18,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "angular_only total bias (%)",
+      "recomputed": -17.260393545075747,
+      "manuscript": -17.26,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "angular_only total RMSE (W)",
+      "recomputed": 15.627500136739805,
+      "manuscript": 15.63,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "convection_only ISO heating",
+      "recomputed": 112.08424341679354,
+      "manuscript": 112.08,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "convection_only ISO cooling",
+      "recomputed": 20.038308668573148,
+      "manuscript": 20.04,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "convection_only ISO total",
+      "recomputed": 132.1225520853667,
+      "manuscript": 132.12,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "convection_only total bias (%)",
+      "recomputed": -16.023441826994862,
+      "manuscript": -16.02,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "convection_only total RMSE (W)",
+      "recomputed": 15.056834189615346,
+      "manuscript": 15.06,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "both ISO heating",
+      "recomputed": 112.13112236078048,
+      "manuscript": 112.13,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "both ISO cooling",
+      "recomputed": 18.36554946192011,
+      "manuscript": 18.37,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "both ISO total",
+      "recomputed": 130.49667182270062,
+      "manuscript": 130.5,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "both total bias (%)",
+      "recomputed": -17.056844726841213,
+      "manuscript": -17.06,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 4",
+      "quantity": "both total RMSE (W)",
+      "recomputed": 15.016625082685858,
+      "manuscript": 15.02,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "both ISO heating",
+      "recomputed": 112.13112236078048,
+      "manuscript": 112.13,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "both ISO cooling",
+      "recomputed": 18.36554946192011,
+      "manuscript": 18.37,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "both ISO total",
+      "recomputed": 130.49667182270062,
+      "manuscript": 130.5,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "both total bias (%)",
+      "recomputed": -17.056844726841213,
+      "manuscript": -17.06,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "both total RMSE (W)",
+      "recomputed": 15.016625082685858,
+      "manuscript": 15.02,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_leakage_only ISO heating",
+      "recomputed": 120.7275138328151,
+      "manuscript": 120.73,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_leakage_only ISO cooling",
+      "recomputed": 19.05659912682352,
+      "manuscript": 19.06,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_leakage_only ISO total",
+      "recomputed": 139.7841129596386,
+      "manuscript": 139.78,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_leakage_only total bias (%)",
+      "recomputed": -17.038513843583868,
+      "manuscript": -17.04,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_leakage_only total RMSE (W)",
+      "recomputed": 15.7596561926995,
+      "manuscript": 15.76,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_construction_only ISO heating",
+      "recomputed": 67.32219709460793,
+      "manuscript": 67.32,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_construction_only ISO cooling",
+      "recomputed": 0.0,
+      "manuscript": 0.0,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_construction_only ISO total",
+      "recomputed": 67.32219709460793,
+      "manuscript": 67.32,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_construction_only total bias (%)",
+      "recomputed": -21.27627160579891,
+      "manuscript": -21.28,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_construction_only total RMSE (W)",
+      "recomputed": 19.392374031864097,
+      "manuscript": 19.39,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_combined ISO heating",
+      "recomputed": 76.51160352227367,
+      "manuscript": 76.51,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_combined ISO cooling",
+      "recomputed": 0.0,
+      "manuscript": 0.0,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_combined ISO total",
+      "recomputed": 76.51160352227367,
+      "manuscript": 76.51,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_combined total bias (%)",
+      "recomputed": -18.609333358774187,
+      "manuscript": -18.61,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_combined total RMSE (W)",
+      "recomputed": 20.29079994332598,
+      "manuscript": 20.29,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "EnergyPlus heating",
+      "recomputed": 136.38001339949838,
+      "manuscript": 136.38,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "EnergyPlus cooling",
+      "recomputed": 20.952645809007294,
+      "manuscript": 20.95,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 2",
+      "quantity": "EnergyPlus total",
+      "recomputed": 157.33265920850567,
+      "manuscript": 157.33,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_leakage_only EnergyPlus total",
+      "recomputed": 168.4927783189524,
+      "manuscript": 168.49,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_construction_only EnergyPlus total",
+      "recomputed": 85.51703338731475,
+      "manuscript": 85.52,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 6",
+      "quantity": "au_combined EnergyPlus total",
+      "recomputed": 94.00537761846908,
+      "manuscript": 94.01,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "au_leakage_only iso heating",
+      "recomputed": 120.7275138328151,
+      "manuscript": 120.73,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "au_leakage_only iso cooling",
+      "recomputed": 19.05659912682352,
+      "manuscript": 19.06,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "au_leakage_only ep heating",
+      "recomputed": 146.83471491438274,
+      "manuscript": 146.83,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "au_leakage_only ep cooling",
+      "recomputed": 21.65806340456961,
+      "manuscript": 21.66,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q14_sensitivity iso heating",
+      "recomputed": 124.5093713471414,
+      "manuscript": 124.51,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q14_sensitivity iso cooling",
+      "recomputed": 19.354151084805533,
+      "manuscript": 19.35,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q14_sensitivity ep heating",
+      "recomputed": 151.5103655182061,
+      "manuscript": 151.51,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q14_sensitivity ep cooling",
+      "recomputed": 21.952872245337133,
+      "manuscript": 21.95,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q11_constant iso heating",
+      "recomputed": 119.81158261277945,
+      "manuscript": 119.81,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q11_constant iso cooling",
+      "recomputed": 18.87461948369637,
+      "manuscript": 18.87,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q11_constant ep heating",
+      "recomputed": 145.50084946811236,
+      "manuscript": 145.5,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 7",
+      "quantity": "q11_constant ep cooling",
+      "recomputed": 21.47881876100829,
+      "manuscript": 21.48,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.2 Methods",
+      "quantity": "fixed-method heating RMSE (W)",
+      "recomputed": 13.157211403067688,
+      "manuscript": 13.16,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.2 Methods",
+      "quantity": "combined heating RMSE (W)",
+      "recomputed": 13.512035118119131,
+      "manuscript": 13.51,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.2 Methods",
+      "quantity": "fixed-method cooling RMSE (W)",
+      "recomputed": 8.370843088736741,
+      "manuscript": 8.37,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.2 Methods",
+      "quantity": "combined cooling RMSE (W)",
+      "recomputed": 6.551636119372423,
+      "manuscript": 6.55,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.4 Inputs",
+      "quantity": "ISO leakage x construction interaction (kWh)",
+      "recomputed": -0.09803470927224112,
+      "manuscript": -0.1,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.4 Inputs",
+      "quantity": "EnergyPlus leakage x construction interaction (kWh)",
+      "recomputed": -2.6717748792924,
+      "manuscript": -2.67,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.2 Methods",
+      "quantity": "angular x convection interaction (kWh)",
+      "recomputed": -0.037714629166146096,
+      "manuscript": -0.04,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.3 Leakage",
+      "quantity": "ISO heating, weather minus constant flow (kWh)",
+      "recomputed": 0.9159312200356595,
+      "manuscript": 0.92,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.3 Leakage",
+      "quantity": "EP heating, weather minus constant flow (kWh)",
+      "recomputed": 1.33386544627038,
+      "manuscript": 1.33,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.3 Leakage",
+      "quantity": "ISO total, q50 11 to 14 (kWh)",
+      "recomputed": 4.079409472308328,
+      "manuscript": 4.1,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "3.3 Leakage",
+      "quantity": "EP total, q50 11 to 14 (kWh)",
+      "recomputed": 4.97045944459083,
+      "manuscript": 5.0,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "state 1000 total",
+      "recomputed": 72.670959572,
+      "manuscript": 72.67,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "state 1100 total",
+      "recomputed": 126.808395716,
+      "manuscript": 126.81,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "state 1110 total",
+      "recomputed": 126.538454058,
+      "manuscript": 126.54,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "state 1111 total",
+      "recomputed": 131.764588688,
+      "manuscript": 131.76,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "change 0000 to 1000",
+      "recomputed": -2336.066953178,
+      "manuscript": -2336.07,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "change 1000 to 1100",
+      "recomputed": 54.137436144000006,
+      "manuscript": 54.14,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "change 1100 to 1110",
+      "recomputed": -0.2699416580000076,
+      "manuscript": -0.27,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 3",
+      "quantity": "change 1110 to 1111",
+      "recomputed": 5.226134630000004,
+      "manuscript": 5.23,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.1 Results",
+      "quantity": "direct gains applied alone (kWh)",
+      "recomputed": 1549.97925579,
+      "manuscript": 1549.98,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.1 Results",
+      "quantity": "direct gains after other three (kWh)",
+      "recomputed": 58.41405511400001,
+      "manuscript": 58.41,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "winter heated hours",
+      "recomputed": 430.0,
+      "manuscript": 430,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "mean operative temperature, ISO (C)",
+      "recomputed": 17.513194630716296,
+      "manuscript": 17.51,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "mean operative temperature, EP (C)",
+      "recomputed": 17.4852016959195,
+      "manuscript": 17.49,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Heating supplied, ISO",
+      "recomputed": 78.09925941432543,
+      "manuscript": 78.1,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Heating supplied, EP",
+      "recomputed": 94.21306016134133,
+      "manuscript": 94.21,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Heating supplied, difference",
+      "recomputed": 16.1138007470159,
+      "manuscript": 16.11,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Heat gained from neighbouring spaces, ISO",
+      "recomputed": 160.61023491501894,
+      "manuscript": 160.61,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Heat gained from neighbouring spaces, EP",
+      "recomputed": 140.96630178088904,
+      "manuscript": 140.97,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Heat gained from neighbouring spaces, difference",
+      "recomputed": -19.643933134129895,
+      "manuscript": -19.64,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Exterior-wall exchange, ISO",
+      "recomputed": -53.253097190181286,
+      "manuscript": -53.25,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Exterior-wall exchange, EP",
+      "recomputed": -54.17437718619171,
+      "manuscript": -54.17,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Exterior-wall exchange, difference",
+      "recomputed": -0.9212799960104263,
+      "manuscript": -0.92,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Outdoor-air exchange, ISO",
+      "recomputed": -190.82979554799917,
+      "manuscript": -190.83,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Outdoor-air exchange, EP",
+      "recomputed": -189.56068253510045,
+      "manuscript": -189.56,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Outdoor-air exchange, difference",
+      "recomputed": 1.269113012898714,
+      "manuscript": 1.27,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Window exchange, net, ISO",
+      "recomputed": -39.00820887007721,
+      "manuscript": -39.01,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Window exchange, net, EP",
+      "recomputed": -32.18877284805906,
+      "manuscript": -32.19,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "Table 5",
+      "quantity": "Window exchange, net, difference",
+      "recomputed": 6.819436022018152,
+      "manuscript": 6.82,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.1 Results",
+      "quantity": "annual heating shortfall (kWh)",
+      "recomputed": 23.158155451327854,
+      "manuscript": 23.16,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.1 Results",
+      "quantity": "June-August heating shortfall (kWh)",
+      "recomputed": 16.113800747015915,
+      "manuscript": 16.11,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.1 Results",
+      "quantity": "winter share of heating shortfall (%)",
+      "recomputed": 69.58153804987943,
+      "manuscript": 69.6,
+      "decimals": 1,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "corrected simulations",
+      "recomputed": 11.0,
+      "manuscript": 11,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "largest residual (1e-11 W)",
+      "recomputed": 9.194423000735696,
+      "manuscript": 9.19,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "diagnostic transmission entries",
+      "recomputed": 7.0,
+      "manuscript": 7,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "material-derived transmission entries",
+      "recomputed": 8.0,
+      "manuscript": 8,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "EnergyPlus references with continuous ventilation",
+      "recomputed": 7.0,
+      "manuscript": 7,
+      "decimals": 0,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "historical reproduction ISO heating",
+      "recomputed": 124.46417270295916,
+      "manuscript": 124.46,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "historical reproduction ISO cooling",
+      "recomputed": 19.295063943241416,
+      "manuscript": 19.3,
+      "decimals": 2,
+      "matches": true
+    },
+    {
+      "section": "3.5 Verification",
+      "quantity": "historical reproduction EP total",
+      "recomputed": 171.4742914312021,
+      "manuscript": 171.47,
+      "decimals": 2,
+      "matches": true
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="460.8pt" height="180.72pt" viewBox="0 0 460.8 180.72" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-10T08:41:25.672206</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 180.72 
+L 460.8 180.72 
+L 460.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 16.128 93.02112 
+L 132.192 93.02112 
+Q 135.7632 93.02112 135.7632 90.36 
+L 135.7632 27.1584 
+Q 135.7632 24.49728 132.192 24.49728 
+L 16.128 24.49728 
+Q 12.5568 24.49728 12.5568 27.1584 
+L 12.5568 90.36 
+Q 12.5568 93.02112 16.128 93.02112 
+z
+" clip-path="url(#p26e81b67ab)" style="fill: #eef3f6; stroke: #28658a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 172.368 93.02112 
+L 288.432 93.02112 
+Q 292.0032 93.02112 292.0032 90.36 
+L 292.0032 27.1584 
+Q 292.0032 24.49728 288.432 24.49728 
+L 172.368 24.49728 
+Q 168.7968 24.49728 168.7968 27.1584 
+L 168.7968 90.36 
+Q 168.7968 93.02112 172.368 93.02112 
+z
+" clip-path="url(#p26e81b67ab)" style="fill: #eef3f6; stroke: #28658a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 328.608 93.02112 
+L 444.672 93.02112 
+Q 448.2432 93.02112 448.2432 90.36 
+L 448.2432 27.1584 
+Q 448.2432 24.49728 444.672 24.49728 
+L 328.608 24.49728 
+Q 325.0368 24.49728 325.0368 27.1584 
+L 325.0368 90.36 
+Q 325.0368 93.02112 328.608 93.02112 
+z
+" clip-path="url(#p26e81b67ab)" style="fill: #eef3f6; stroke: #28658a; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(54.940469 39.12295)">Stage 1</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(15.561563 50.320763)">Implementation repairs</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(74.16 61.518575)"/>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(26.385781 72.716388)">Original → repaired</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(26.463125 83.9142)">Infiltration ablation</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(211.180469 39.12295)">Stage 2</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(186.557812 50.320763)">Physical methods</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(230.4 61.518575)"/>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(176.251562 72.716388)">Angular × convection</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(178.786719 83.9142)">Neither / each / both</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(367.420469 39.12295)">Stage 3</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(344.300937 50.320763)">Australian inputs</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(386.64 61.518575)"/>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(327.217344 72.716388)">Leakage × construction</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(328.317344 83.9142)">Reference / each / both</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 138.657226 58.7592 
+Q 151.16376 58.7592 161.881441 58.7592 
+" style="fill: none; stroke: #28658a; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 157.881441 56.7592 
+L 161.881441 58.7592 
+L 157.881441 60.7592 
+" style="fill: none; stroke: #28658a; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 294.897226 58.7592 
+Q 307.40376 58.7592 318.121441 58.7592 
+" style="fill: none; stroke: #28658a; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 314.121441 56.7592 
+L 318.121441 58.7592 
+L 314.121441 60.7592 
+" style="fill: none; stroke: #28658a; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="154.512" y="115.308" transform="rotate(-0 154.512 115.308)">Stages 1–2: common EnergyPlus reference</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(323.625937 108.556369)">Stage 3: matched reference</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(327.810234 118.6344)">for each physical scenario</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(33.276562 141.890969)">EnergyPlus algorithms unchanged • Compare annual demand and hourly error</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(12.586719 156.888)">Sensitivity checks: leakage magnitude and constant versus weather-dependent airflow</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p26e81b67ab">
+   <rect x="7.2" y="7.2" width="446.4" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
