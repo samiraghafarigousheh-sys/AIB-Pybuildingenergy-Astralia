@@ -6,6 +6,7 @@ This folder holds only what you need to run the latest revised engine: the engin
 
 | Path | What it is |
 |---|---|
+| `colab_new_building.ipynb` | Google Colab notebook where every building input (location, surfaces, neighbours, setpoints, ventilation, gains, schedules, model options) and the weather file are set in commented cells. |
 | `run.py` | Runs one annual simulation. It prints annual heating and cooling and writes the hourly results. |
 | `pybuildingenergy/` | The revised ISO 52016-1 engine, copied from `manuscript_reproduction/pybuildingenergy/src/pybuildingenergy/` without the example charts and images. |
 | `buildings/apt305_repaired.json` | Apartment 305, Carlton (Melbourne) with all repairs. This is the paper's main case: **131.76 kWh/year**. |
@@ -50,6 +51,10 @@ The hourly CSV has 8760 rows. Useful columns:
 - Heat-balance terms such as `Q_tr_*`, `Q_ve`, `Q_solar_gains` and `Q_internal_gains`.
 
 ## Model your own building
+
+The easiest way is `colab_new_building.ipynb`: open it in Google Colab (File → Open notebook → GitHub), edit Steps 2–10 and run. Unchanged, it gives 131.76 kWh/year.
+
+Or, without the notebook:
 
 Copy one of the JSON files in `buildings/` and edit it:
 
