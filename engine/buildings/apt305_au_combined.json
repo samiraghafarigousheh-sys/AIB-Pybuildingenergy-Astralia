@@ -1,0 +1,926 @@
+{
+  "building": {
+    "name": "Apt_305_50_Barry_St_Carlton",
+    "azimuth_relative_to_true_north": 0,
+    "latitude": -37.8,
+    "longitude": 144.968,
+    "exposed_perimeter": 0,
+    "height": 2.7,
+    "wall_thickness": 0.2,
+    "n_floors": 1,
+    "building_type_class": "Residential_apartment",
+    "adj_zones_present": true,
+    "number_adj_zone": 5,
+    "net_floor_area": 20.0,
+    "construction_class": "class_i",
+    "construction_year": 2006,
+    "country": "Australia"
+  },
+  "site": {
+    "terrain_class": "suburban",
+    "floor_level": 3,
+    "weather_station_terrain": "open_country",
+    "weather_station_sensor_height_m": 10.0
+  },
+  "adjacent_zones": [
+    {
+      "name": "apt_above",
+      "orientation_zone": {
+        "azimuth": 270.0
+      },
+      "area_facade_elements": [
+        13.5,
+        10.8,
+        13.5,
+        10.8,
+        20.0,
+        20.0
+      ],
+      "typology_elements": [
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP"
+      ],
+      "transmittance_U_elements": [
+        1.0,
+        2.5,
+        2.5,
+        2.5,
+        1.8,
+        1.8
+      ],
+      "orientation_elements": [
+        "WV",
+        "NV",
+        "EV",
+        "SV",
+        "HOR",
+        "HOR"
+      ],
+      "volume": 54.0,
+      "building_type_class": "Residential_apartment",
+      "a_use": 20.0,
+      "conditioned": true,
+      "setpoint": 20.0
+    },
+    {
+      "name": "apt_below",
+      "orientation_zone": {
+        "azimuth": 270.0
+      },
+      "area_facade_elements": [
+        13.5,
+        10.8,
+        13.5,
+        10.8,
+        20.0,
+        20.0
+      ],
+      "typology_elements": [
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP"
+      ],
+      "transmittance_U_elements": [
+        1.0,
+        2.5,
+        2.5,
+        2.5,
+        1.8,
+        1.8
+      ],
+      "orientation_elements": [
+        "WV",
+        "NV",
+        "EV",
+        "SV",
+        "HOR",
+        "HOR"
+      ],
+      "volume": 54.0,
+      "building_type_class": "Residential_apartment",
+      "a_use": 20.0,
+      "conditioned": true,
+      "setpoint": 20.0
+    },
+    {
+      "name": "apt_north",
+      "orientation_zone": {
+        "azimuth": 0.0
+      },
+      "area_facade_elements": [
+        13.5,
+        10.8,
+        13.5,
+        10.8,
+        20.0,
+        20.0
+      ],
+      "typology_elements": [
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP"
+      ],
+      "transmittance_U_elements": [
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        1.8,
+        1.8
+      ],
+      "orientation_elements": [
+        "WV",
+        "NV",
+        "EV",
+        "SV",
+        "HOR",
+        "HOR"
+      ],
+      "volume": 54.0,
+      "building_type_class": "Residential_apartment",
+      "a_use": 20.0,
+      "conditioned": true,
+      "setpoint": 20.0
+    },
+    {
+      "name": "apt_south",
+      "orientation_zone": {
+        "azimuth": 180.0
+      },
+      "area_facade_elements": [
+        13.5,
+        10.8,
+        13.5,
+        10.8,
+        20.0,
+        20.0
+      ],
+      "typology_elements": [
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP"
+      ],
+      "transmittance_U_elements": [
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        1.8,
+        1.8
+      ],
+      "orientation_elements": [
+        "WV",
+        "NV",
+        "EV",
+        "SV",
+        "HOR",
+        "HOR"
+      ],
+      "volume": 54.0,
+      "building_type_class": "Residential_apartment",
+      "a_use": 20.0,
+      "conditioned": true,
+      "setpoint": 20.0
+    },
+    {
+      "name": "corridor",
+      "orientation_zone": {
+        "azimuth": 90.0
+      },
+      "area_facade_elements": [
+        81.0,
+        5.4,
+        81.0,
+        5.4,
+        60.0,
+        60.0
+      ],
+      "typology_elements": [
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP",
+        "OP"
+      ],
+      "transmittance_U_elements": [
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "orientation_elements": [
+        "WV",
+        "NV",
+        "EV",
+        "SV",
+        "HOR",
+        "HOR"
+      ],
+      "volume": 162.0,
+      "building_type_class": "Residential_apartment",
+      "a_use": 60.0,
+      "conditioned": true,
+      "setpoint": 20.0
+    }
+  ],
+  "building_surface": [
+    {
+      "name": "West exterior wall (opaque)",
+      "type": "opaque",
+      "area": 11.879999999999999,
+      "sky_view_factor": 0.5,
+      "u_value": 0.5355200365731632,
+      "solar_absorptance": 0.75,
+      "thermal_capacity": 169652.0,
+      "orientation": {
+        "azimuth": 270.0,
+        "tilt": 90.0
+      },
+      "name_adj_zone": null,
+      "height": 2.7,
+      "length": 5.0,
+      "convective_heat_transfer_coefficient_internal": 2.5,
+      "radiative_heat_transfer_coefficient_internal": 5.13,
+      "convective_heat_transfer_coefficient_external": 20.0,
+      "radiative_heat_transfer_coefficient_external": 4.14,
+      "scenario_layers": [
+        {
+          "name": "brick",
+          "thickness_m": 0.11,
+          "conductivity_W_mK": 0.77,
+          "density_kg_m3": 1700,
+          "specific_heat_J_kgK": 840
+        },
+        {
+          "name": "insulation",
+          "thickness_m": 0.06,
+          "conductivity_W_mK": 0.04,
+          "density_kg_m3": 20,
+          "specific_heat_J_kgK": 1030
+        },
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        }
+      ]
+    },
+    {
+      "name": "North wall to Apt 306",
+      "type": "adjacent",
+      "area": 10.8,
+      "sky_view_factor": 0.0,
+      "u_value": 1.9375219018694674,
+      "solar_absorptance": 0.0,
+      "thermal_capacity": 128512.0,
+      "orientation": {
+        "azimuth": 0.0,
+        "tilt": 90.0
+      },
+      "name_adj_zone": "apt_north",
+      "height": 2.7,
+      "length": 4.0,
+      "convective_heat_transfer_coefficient_internal": 2.5,
+      "radiative_heat_transfer_coefficient_internal": 5.13,
+      "convective_heat_transfer_coefficient_external": 2.5,
+      "radiative_heat_transfer_coefficient_external": 5.13,
+      "scenario_layers": [
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        },
+        {
+          "name": "block",
+          "thickness_m": 0.09,
+          "conductivity_W_mK": 0.6,
+          "density_kg_m3": 1400,
+          "specific_heat_J_kgK": 840
+        },
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        }
+      ]
+    },
+    {
+      "name": "South wall to Apt 304",
+      "type": "adjacent",
+      "area": 10.8,
+      "sky_view_factor": 0.0,
+      "u_value": 1.9375219018694674,
+      "solar_absorptance": 0.0,
+      "thermal_capacity": 128512.0,
+      "orientation": {
+        "azimuth": 180.0,
+        "tilt": 90.0
+      },
+      "name_adj_zone": "apt_south",
+      "height": 2.7,
+      "length": 4.0,
+      "convective_heat_transfer_coefficient_internal": 2.5,
+      "radiative_heat_transfer_coefficient_internal": 5.13,
+      "convective_heat_transfer_coefficient_external": 2.5,
+      "radiative_heat_transfer_coefficient_external": 5.13,
+      "scenario_layers": [
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        },
+        {
+          "name": "block",
+          "thickness_m": 0.09,
+          "conductivity_W_mK": 0.6,
+          "density_kg_m3": 1400,
+          "specific_heat_J_kgK": 840
+        },
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        }
+      ]
+    },
+    {
+      "name": "East wall to corridor",
+      "type": "adjacent",
+      "area": 13.5,
+      "sky_view_factor": 0.0,
+      "u_value": 1.9375219018694674,
+      "solar_absorptance": 0.0,
+      "thermal_capacity": 128512.0,
+      "orientation": {
+        "azimuth": 90.0,
+        "tilt": 90.0
+      },
+      "name_adj_zone": "corridor",
+      "height": 2.7,
+      "length": 5.0,
+      "convective_heat_transfer_coefficient_internal": 2.5,
+      "radiative_heat_transfer_coefficient_internal": 5.13,
+      "convective_heat_transfer_coefficient_external": 2.5,
+      "radiative_heat_transfer_coefficient_external": 5.13,
+      "scenario_layers": [
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        },
+        {
+          "name": "block",
+          "thickness_m": 0.09,
+          "conductivity_W_mK": 0.6,
+          "density_kg_m3": 1400,
+          "specific_heat_J_kgK": 840
+        },
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        }
+      ]
+    },
+    {
+      "name": "Floor to Apt 205",
+      "type": "adjacent",
+      "area": 20.0,
+      "sky_view_factor": 0.0,
+      "u_value": 2.3861768295454167,
+      "solar_absorptance": 0.0,
+      "thermal_capacity": 427472.0,
+      "orientation": {
+        "azimuth": 0.0,
+        "tilt": 0.0
+      },
+      "name_adj_zone": "apt_below",
+      "height": 5.0,
+      "length": 4.0,
+      "convective_heat_transfer_coefficient_internal": 5.0,
+      "radiative_heat_transfer_coefficient_internal": 5.13,
+      "convective_heat_transfer_coefficient_external": 5.0,
+      "radiative_heat_transfer_coefficient_external": 5.13,
+      "scenario_layers": [
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        },
+        {
+          "name": "concrete",
+          "thickness_m": 0.2,
+          "conductivity_W_mK": 1.7,
+          "density_kg_m3": 2300,
+          "specific_heat_J_kgK": 880
+        },
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        }
+      ]
+    },
+    {
+      "name": "Ceiling to Apt 405",
+      "type": "adjacent",
+      "area": 20.0,
+      "sky_view_factor": 0.0,
+      "u_value": 2.3861768295454167,
+      "solar_absorptance": 0.0,
+      "thermal_capacity": 427472.0,
+      "orientation": {
+        "azimuth": 0.0,
+        "tilt": 0.0
+      },
+      "name_adj_zone": "apt_above",
+      "height": 5.0,
+      "length": 4.0,
+      "convective_heat_transfer_coefficient_internal": 5.0,
+      "radiative_heat_transfer_coefficient_internal": 5.13,
+      "convective_heat_transfer_coefficient_external": 5.0,
+      "radiative_heat_transfer_coefficient_external": 5.13,
+      "scenario_layers": [
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        },
+        {
+          "name": "concrete",
+          "thickness_m": 0.2,
+          "conductivity_W_mK": 1.7,
+          "density_kg_m3": 2300,
+          "specific_heat_J_kgK": 880
+        },
+        {
+          "name": "plasterboard",
+          "thickness_m": 0.013,
+          "conductivity_W_mK": 0.25,
+          "density_kg_m3": 800,
+          "specific_heat_J_kgK": 1090
+        }
+      ]
+    },
+    {
+      "name": "West window - fixed",
+      "type": "transparent",
+      "area": 0.81,
+      "sky_view_factor": 0.5,
+      "u_value": 5.4,
+      "solar_absorptance": 0.5,
+      "thermal_capacity": 0,
+      "orientation": {
+        "azimuth": 270.0,
+        "tilt": 90.0
+      },
+      "name_adj_zone": null,
+      "height": 0.9,
+      "g_value": 0.65,
+      "width": 0.9,
+      "parapet": 1.0,
+      "shading": false,
+      "glazing_panes": 2
+    },
+    {
+      "name": "West window - operable",
+      "type": "transparent",
+      "area": 0.81,
+      "sky_view_factor": 0.5,
+      "u_value": 5.4,
+      "solar_absorptance": 0.5,
+      "thermal_capacity": 0,
+      "orientation": {
+        "azimuth": 270.0,
+        "tilt": 90.0
+      },
+      "name_adj_zone": null,
+      "height": 0.9,
+      "g_value": 0.65,
+      "width": 0.9,
+      "parapet": 1.0,
+      "shading": false,
+      "glazing_panes": 2
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "u_value": "W/m²K",
+    "thermal_capacity": "J/m²K",
+    "azimuth": "degrees (0=N, 90=E, 180=S, 270=W)",
+    "tilt": "degrees (0=horizontal, 90=vertical)",
+    "internal_gain": "W/m²",
+    "HVAC_profile": "0: off, 1: on"
+  },
+  "building_parameters": {
+    "temperature_setpoints": {
+      "heating_setpoint": 18.0,
+      "heating_setback": 15.0,
+      "cooling_setpoint": 26.0,
+      "cooling_setback": 28.0,
+      "units": "°C"
+    },
+    "system_capacities": {
+      "heating_capacity": 10000000.0,
+      "cooling_capacity": 10000000.0,
+      "units": "W"
+    },
+    "ventilation": {
+      "ventilation_type": "occupancy",
+      "flow_rate_per_person": 2.0,
+      "units": "l/(s m²)",
+      "custom_heat_transfer_coefficient_ventilation": null,
+      "envelope_permeability_q50": 11.0,
+      "infiltration_modulation": "stack_wind",
+      "infiltration_reference_temperature_C": 20.0,
+      "infiltration_multiplier_decimals": 6
+    },
+    "internal_gains": [
+      {
+        "name": "occupants",
+        "full_load": 4.2,
+        "weekday": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.5,
+          0.4,
+          0.5,
+          0.5,
+          0.5,
+          0.4,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "weekend": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.8,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.5,
+          0.5,
+          0.7,
+          0.8,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "appliances",
+        "full_load": 3.0,
+        "weekday": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.2,
+          0.3,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.3,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.3,
+          0.3,
+          0.4,
+          1.0,
+          0.6,
+          0.4,
+          0.2
+        ],
+        "weekend": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.2,
+          0.3,
+          0.4,
+          0.3,
+          0.3,
+          0.4,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.4,
+          0.4,
+          0.5,
+          1.0,
+          0.6,
+          0.4,
+          0.2
+        ]
+      },
+      {
+        "name": "lighting",
+        "full_load": 0.0,
+        "weekday": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3,
+          0.3,
+          0.1,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.1,
+          0.5,
+          0.8,
+          0.8,
+          0.8,
+          0.7,
+          0.4,
+          0.1
+        ],
+        "weekend": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.1,
+          0.3,
+          0.3,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.3,
+          0.5,
+          0.8,
+          0.8,
+          0.8,
+          0.7,
+          0.4,
+          0.1
+        ]
+      }
+    ],
+    "construction": {
+      "wall_thickness": 0.2,
+      "thermal_bridges": 1.5,
+      "units": "m (thickness), W/mK (thermal bridges)"
+    },
+    "climate_parameters": {
+      "coldest_month": 7,
+      "units": "1-12 (January-December)"
+    },
+    "heating_profile": {
+      "weekday": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "weekend": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "cooling_profile": {
+      "weekday": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "weekend": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "ventilation_profile": {
+      "weekday": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "weekend": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "simulation_options": {
+      "profile_start_year": 2025,
+      "profile_use_holidays": false,
+      "dynamic_window_properties": true,
+      "dynamic_surface_heat_transfer": true,
+      "window_angular_solar_model": "karlsson_roos",
+      "window_convection_model": "simplecombined",
+      "external_convection_model": "simplecombined",
+      "preserve_construction_surfaces": true
+    }
+  }
+}
